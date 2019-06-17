@@ -1,10 +1,11 @@
 dist: xenial
 language: python
 python:
-  - "3.7"
-
+- '3.7'
 install:
-  - pip install -r requirements.txt
-
-script:
-  python manage.py test
+- pip install -r requirements.txt
+script: python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: HbriHEuf9eZPXZIgP65fltBW3XorN3w1DpT4ZlFEWagyh1sleA2SWj9SP52eNVb4Hj7rk+yhKYr4hyRDpw2vFumBCJEdKiXJbBQUHScBr1zwhMk0yIoNIlSnAPOPLJY9KI/VaMZUjUk1alonrwKejzB76KcWqExeh8mq6+D/YDLAYU7VRjw7XrThaVr4Kom3LF8AZEW1qWe2QRwLNNg3dvLX3tfgQyfGcIe/Lw4w6GoOTXaoOvy3Gd7ew76r9EdxcTAJws/1l+DJs0wG28o2yIU/FPctViDCYt1fh1V+PDOlhy4hmwuCi13yPtfDyAlzxc+3vH3FsbkDxO5fJi2BD1XBaCydPBvts+2p3J3r5+H3MvFpnEuYJliSiwvdC0Iq++Jh/PnAoiC1+1pgzLBDlt8ldNJs3NJzugg3uWPObF6Ao2tuY6XOJ+Rbk7MFVSKmXHg6Xi59KqHxM1TTJ5xYQ3nGp4Ha9bP7LsX0ymQFtra4k7w87qaO9DfF83U8jWnEDI0UskVIyFHftbj08ZvJFPZCivtE6if/omTtfsp8vEHVZJgwkkUahu4spAPFaAsyE5Rfk9rQ9cqwpWNgSYDQ33eG4SXyK1dR/NuoPbMb2o7o0vJSKcTlR1NUHILEer5kTsg8U05bVUMnnrH+uJBEK7Amosj+mwkQPsg+munMg4A=
