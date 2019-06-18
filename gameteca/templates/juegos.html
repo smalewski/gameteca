@@ -130,23 +130,26 @@ ul, ol {
       </div>
 
       <div class="contenido">
-        <ul class="nav", align="center">
-          <li><header><b href="#header"><H2>Nuevos juegos en la plataforma! </H2></b>
-        </ul>
-        <br>
-        {% for juego in todos_juegos %}
-              <a href="juego/{{juego.id}}"><img src= {{juego.caratula}} alt={{juego.nombre}},width=300, height=500 >
+
+        {% for juego in juego_f %}
+              <img src= {{juego.caratula}} alt={{juego.nombre}},width=300, height=500 >
+              <br>
+              <ul class="nav", align="center">
+                <li><a>Juego: {{juego.nombre}}</a>
+                <li><a>Fecha de lanzamiento: {{juego.fecha}}</a>
+              </ul>
         {% endfor %}
         <br>
       </div>
 
       <div class="titulo">
         <ul>
-          <a href="/"><img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
+          <img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
         </ul>
         <br>
         <ul class="nav", align="center">
-          <li><c href="#sesion">Iniciar sesión</a>
+          <li><a href="/">Inicio</a>
+          <li><a href="#sesion">Iniciar sesión</a>
           <ul>
             <li><a href="#user"> <input class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
             <li><a href="#pass"> <input class="form-control mr-sm-2" type="search" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
