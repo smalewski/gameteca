@@ -63,6 +63,20 @@ ul, ol {
   display:inline-block;
 }
 
+.nav > ol {
+	float:left;
+}
+
+.nav ol b {
+  background-color:#FFFF;
+  text-align: center;
+  float:none;
+  -webkit-text-stroke-color: black;
+	color:#000;
+	text-decoration:none;
+	padding:10px 400px;
+	display:block;
+}
 .nav > li {
 	float:left;
 }
