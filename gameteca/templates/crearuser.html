@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
 
 <title>Gameteca</title>
-<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/gestionuser.css">
+<style>
 
+
+</style>
 </head>
 <body>
     <div class = "container">
@@ -18,24 +21,35 @@
         <body background="lateral.png">
       </div>
 
-      <div class="contenido">
-        <ul class="nav", align="center">
-          <li><header><b href="#header"><H2>Nuevos juegos en la plataforma! </H2></b>
-        </ul>
+      <div class="contenido", align = center>
+        <!-- donde dice gato.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+        <img src="gato.jpg" class='imgRedonda', width="500", height="500">
+          <br>
+
+              <ul class="nav">
+                <ol><b>Imagen de usuario <br><input type="file" name="Subir imagen"><input type="submit" value="Cargar"></b>
+
+                  <ol><b>Nombre de usuario <br><input type="text" name="Nombre" id="user"></b>
+
+                  <ol><b>Contraseña <br><input type="password" name="pass" id="pass"></b>
+
+                  <ol><b>E-mail <br><input type="text" name="Correo" id="correo"></b>
+
+                  <ol><b>Sobre mi: <br><textarea></textarea></b>
+              </ul>
         <br>
-        {% for juego in todos_juegos %}
-              <a href="juego/{{juego.id}}"><img src= {{juego.caratula}} alt={{juego.nombre}},width=300, height=500 >
-        {% endfor %}
-        <br>
+
+        <input type="submit" value="Crear" style='width:120px; height:50px'>
       </div>
 
       <div class="titulo">
         <ul>
-          <a href="/"><img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
+          <img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
         </ul>
         <br>
         <ul class="nav", align="center">
-          <li><c href="#sesion">Iniciar sesión</a>
+          <li><a href="/">Inicio</a>
+          <li><a href="#sesion">Iniciar sesión</a>
           <ul>
             <li><a href="#user"> <input class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
             <li><a href="#pass"> <input class="form-control mr-sm-2" type="search" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
