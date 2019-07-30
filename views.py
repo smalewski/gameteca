@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import render_template
 from controllers import *
 from utils import *
 
@@ -24,7 +24,7 @@ class BuscarUsuarioView():
         return render_template('buscarUsuario/index.html')
 
     @staticmethod
-    def buscarUsuario():
+    def buscarUsuario(request):
         nombre = request.form.get('nombre', '')
         if verificarNombre(nombre):
             usuario = BuscarUsuarioController.buscarUsuario(nombre)
@@ -54,7 +54,7 @@ class AnadirListadoView():
         return render_template('listado/anadir.html', juegos)
 
     @staticmethod
-    def anadeVideojuego():
+    def anadeVideojuego(request):
         idn = request.form.get('idn, ''')
         if verificarID(idn) and \
            AnadirVideojuegoListadoController.anadeVideojuego(juego):
@@ -70,7 +70,7 @@ class EditarListadoView():
         return render_template('listado/editar.html', juegos=juegos)
 
     @staticmethod
-    def editar():
+    def editar(request):
         idn = request.form.get('idn', -1)
         valoracion = request.form.get('valoracion', 0)
         horas = request.form.get('horas', 0)
@@ -89,7 +89,7 @@ class EliminarListadoView():
         return render_template('listado/eliminar.html', juegos=juegos)
 
     @staticmethod
-    def eliminar():
+    def eliminar(request):
         idn = request.form.get('idn', -1)
         if verificarJuego(idn):
             EliminarListadoController.eliminar(idn)
@@ -122,7 +122,7 @@ class RegistrarCuentaView():
         return render_template('cuenta/registrar.html')
 
     @staticmethod
-    def registrar(username, password, correo):
+    def registrar(request):
         username = request.form.get('username', '')
         password = request.form.get('password', '')
         correo = request.form.get('correo', '')
@@ -142,7 +142,7 @@ class EditarCuentaView():
         return render_template('cuenta/editar.html', cuenta=cuenta)
 
     @staticmethod
-    def editar():
+    def editar(request):
         cuenta = EditarCuentaController.obtenerCuenta()
         passwordNueva = request.form.get('passwordNueva', '')
         passwordActual = request.form.get('passwordActual', '')
@@ -163,7 +163,7 @@ class EliminarCuentaView():
         return render_template('cuenta/eliminar.html', cuenta=cuenta)
 
     @staticmethod
-    def eliminar():
+    def eliminar(request):
         cuenta = EliminarCuentaController.obtenerCuenta()
         password = request.form.get('password', '')
         if verificarPassword(password) and \
@@ -197,7 +197,7 @@ class RegistrarVideojuegoView():
         return render_template('videojuego/registrar.html')
 
     @staticmethod
-    def registrar(nombre, estreno, plataformas, generos):
+    def registrar(request):
         nombre = request.form.get('nombre', '')
         estreno = request.form.get('estreno', '')
         plataformas = request.form.get('plataformas', [])
@@ -217,7 +217,7 @@ class EditarVideojuegoView():
         return render_template('videojuego/editar.html', juegos)
 
     @staticmethod
-    def editar():
+    def editar(request):
         nombre = request.form.get('nombre', '')
         estreno = request.form.get('estreno', '')
         plataformas = request.form.get('plataformas', [])
@@ -237,7 +237,7 @@ class EliminarVideojuegoView():
         return render_template('videojuego/eliminar.html', juegos)
 
     @staticmethod
-    def eliminar():
+    def eliminar(request):
         idn = request.form.get('idn', '')
 
         if verificarID(idn) and EliminarVideojuegoController.eliminar(idn):
@@ -271,7 +271,7 @@ class RegistrarGeneroView():
         return render_template('genero/index.html', generos)
 
     @staticmethod
-    def registrar():
+    def registrar(request):
         nombre = request.form.get('nombre', '')
         if verificarNombre(nombre) and RegistrarGeneroController.registrar(nombre):
             return render_template('genero/index.html', ok=True)
@@ -285,7 +285,7 @@ class EditarGeneroView():
         return render_template('genero/editar.html', generos)
 
     @staticmethod
-    def editar():
+    def editar(request):
         idn = request.form.get('idn', '')
         nombre = request.form.get('nombre', '')
         if verificarID(idn) and \
@@ -302,7 +302,7 @@ class EliminarGeneroView():
         return render_template('genero/eliminar.html', generos)
 
     @staticmethod
-    def eliminar():
+    def eliminar(request):
         idn = request.form.get('idn', '')
         if verificarID(idn) and EliminarGeneroController.eliminar(idn):
             return render_template('genero/eliminar.html', ok=True)
@@ -334,7 +334,7 @@ class RegistrarPlataformaView():
         return render_template('plataforma/index.html', plataformas=plataformas)
 
     @staticmethod
-    def registrar(nombre, estreno, marca):
+    def registrar(request):
         nombre = request.form.get('nombre', '')
         estreno = request.form.get('estreno', '')
         marca = request.form.get('marca', '')
@@ -354,7 +354,7 @@ class EditarPlataformaView():
         return render_template('plataforma/index.html', plataformas=plataformas)
 
     @staticmethod
-    def editar(idn, nuevoNombre, nuevoEstreno, nuevoMarca):
+    def editar(request):
         idn = request.form.get('idn', '')
         nombre = request.form.get('nombre', '')
         estreno = request.form.get('estreno', '')
@@ -375,7 +375,7 @@ class EliminarPlataformaView():
         return render_template('plataforma/index.html', plataformas=plataformas)
 
     @staticmethod
-    def eliminar(idn):
+    def eliminar(request):
         idn = request.form.get('idn', '')
         if verificarID(idn) and \
            EliminarPlataformaController.eliminar(idn):
