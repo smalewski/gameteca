@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
 
 <title>Gameteca</title>
-<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/gestionjuego.css">
+<style>
 
+
+</style>
 </head>
 <body>
     <div class = "container">
@@ -19,23 +22,40 @@
       </div>
 
       <div class="contenido">
-        <ul class="nav", align="center">
-          <li><header><b href="#header"><H2>Nuevos juegos en la plataforma! </H2></b>
-        </ul>
+        <!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+        <img src= "ps4.jpg"  ,width=300, height=500 >
+          <br>
+              <ul class="nav", align="center">
+                <li><b>Imagen del videojuego<input type="file" name="Subir imagen"><input type="submit" value="Cargar"></b>
+
+                  <ol><b>Nombre del videojuego<br><input type="text" name="Nombre del videojuego" id="Nombre_juego"></b>
+
+                  <ol><b>Fecha de lanzamiento <br><input type="date" name="Fecha de lanzamiento" id="lanzamiento"></b>
+
+                  <ol><b>Plataforma disponible<br><select name="Plataformas">
+                    <!-- Aquí tienen que cargarse las plataformas disponibles en el sistema -->
+                     <option value="1">ps4</option>
+                     <option value="2">ps3</option>
+                     <option value="3">pc</option>
+                     <option value="4">wii</option>
+                  </select></b>
+              </ul>
         <br>
-        {% for juego in todos_juegos %}
-              <a href="juego/{{juego.id}}"><img src= {{juego.caratula}} alt={{juego.nombre}},width=300, height=500 >
-        {% endfor %}
-        <br>
+
+
+        <input type="submit" value="Editar" style='width:120px; height:50px'>
+        <input type="submit" value="Dar de baja" style='width:120px; height:50px'>
+        <input type="submit" value="Crear" style='width:120px; height:50px'>
       </div>
 
       <div class="titulo">
         <ul>
-          <a href="/"><img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
+          <img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
         </ul>
         <br>
         <ul class="nav", align="center">
-          <li><c href="#sesion">Iniciar sesión</a>
+          <li><a href="/">Inicio</a>
+          <li><a href="#sesion">Iniciar sesión</a>
           <ul>
             <li><a href="#user"> <input class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
             <li><a href="#pass"> <input class="form-control mr-sm-2" type="search" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
