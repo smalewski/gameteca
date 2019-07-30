@@ -1,11 +1,13 @@
 from flask import Flask
-from gameteca.database import db_session
- 
+from database import db_session
+from views import *
+
 app = Flask(__name__)
- 
+
 @app.route('/')
-def index():
-    return "Hello World!"
+def principal():
+    return PrincipalView.inicio()
+
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):

@@ -5,7 +5,7 @@ import enum
 from sqlalchemy import Table, Column, Integer, String, Date, Enum, ForeignKey
 from sqlalchemy.orm import relationship, sessionmaker
 
-from gameteca.database import Base, db_session
+from database import Base, db_session
 
 #
 # Tablas de asociación

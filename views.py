@@ -404,5 +404,5 @@ class PrincipalView():
 
     @staticmethod
     def inicio():
-        pass
+        return render_template('index.html')
 
