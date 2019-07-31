@@ -6,30 +6,28 @@ class BuscarVideojuegoView():
 
     @staticmethod
     def inicio():
-        return render_template('buscarVideojuego/index.html')
+        return render_template('buscarVideojuego.html')
 
     @staticmethod
-    def buscarVideojuego():
-        nombre = request.form.get('nombre', '')
+    def buscarVideojuego(nombre):
         if verificarNombre(nombre):
             juego = BuscarVideojuegoController.buscarVideojuego(nombre)
-            return render_template('buscarVideojuego/index.html', juego=juego)
-        return render_template('buscarVideojuego/index.html')
+            return render_template('buscarVideojuego.html', juego=juego)
+        return render_template('buscarVideojuego.html')
 
 
 class BuscarUsuarioView():
 
     @staticmethod
     def inicio():
-        return render_template('buscarUsuario/index.html')
+        return render_template('buscarUsuario.html')
 
     @staticmethod
-    def buscarUsuario(request):
-        nombre = request.form.get('nombre', '')
+    def buscarUsuario(nombre):
         if verificarNombre(nombre):
             usuario = BuscarUsuarioController.buscarUsuario(nombre)
-            return render_template('buscarUsuario/index.html', usuario=usuario)
-        return render_template('buscarUsuario/index.html')
+            return render_template('buscarUsuario.html', usuario=usuario)
+        return render_template('buscarUsuario.html')
 
     @staticmethod
     def verListado(usuario):

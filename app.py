@@ -13,6 +13,27 @@ def videojuegos():
     pass
 
 #
+# Busquedas
+#
+@app.route('/buscar/videojuego/<nombre>')
+def buscarVideojuego(nombre):
+    return BuscarVideojuegoView.buscarVideojuego(nombre)
+
+@app.route('/buscar/usuario/<username>')
+def buscarUsuario(username):
+    return BuscarUsuarioView.buscarUsuario(username)
+
+
+#
+# Gestión usuarios
+#
+
+@app.route('/usuario/<username>')
+def verUsuario(username):
+    return BuscarUsuarioView.buscarUsuario(username)
+
+
+#
 # Tablas básicas
 #
 
