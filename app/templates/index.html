@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<ul class="nav", align="center">
+    <li><header><b href="#header"><H2>Nuevos juegos en la plataforma! </H2></b></header></li>
+</ul>
+<br>
+<ul>
+{% for juego in juegos %}
+    <li>
+        <img src="{{ juego.imagen }}" height="100" width="100">
+        <br/>
+<a href="{{ url_for('buscarVideojuego', nombre=juego.nombre) }}">{{ juego.nombre }}</a>
+    </li>
+{% endfor %}
+</ul>
+<br />
+{% endblock %}

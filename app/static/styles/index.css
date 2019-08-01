@@ -26,7 +26,7 @@
 .contenido{
   background: white;
   padding: 10px;
-  color: #fff;
+  color: #000;
   text-align: center;
   grid-area: contenido;
 }
@@ -36,6 +36,8 @@
   background-repeat: repeat-y;
   text-align: center;
   grid-area: barra;
+  top: 0;
+  bottom: 0;
 }
 
 .barra2{

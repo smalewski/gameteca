@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<h1><b>Plataformas</b></h1>
+<br>
+<div class="nav", align="center">
+    <form method="post">
+        <div class="form-group">
+            <label for="nombreActual">Plataformas disponibles</label>
+            <select class="form-control" id="nombreActual" name="idn">
+                {% for plataforma in plataformas %}
+                <option value="{{ plataforma.id }}">{{ plataforma.nombre }} - {{ plataforma.marca }} - {{ plataforma.fecha_estreno }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nuevoNombre">Nueva plataforma</label>
+            <input class="form-control" type="text" name="nombre" id="nuevoNombre" maxlength="20">
+        </div>
+        <div class="form-group">
+            <label for="estreno">Estreno</label>
+            <input class="form-control" type="date" name="estreno" id="estreno">
+        </div>
+        <div class="form-group">
+            <label for="marca">Marca</label>
+            <input class="form-control" type="text" name="marca" id="marca" maxlength="20">
+        </div>
+        <input class="btn btn-primary" type="submit" name="action" value="Agregar">
+        <input class="btn btn-primary" type="submit" name="action" value="Editar">
+        <input class="btn btn-primary" type="submit" name="action" value="Dar de baja">
+    </form>
+</div>
+
+{% endblock %}

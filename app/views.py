@@ -1,19 +1,19 @@
 from flask import render_template
-from controllers import *
-from utils import *
+from app.controllers import *
+from app.utils import *
+
 
 class BuscarVideojuegoView():
-
-    @staticmethod
-    def inicio():
-        return render_template('buscarVideojuego.html')
 
     @staticmethod
     def buscarVideojuego(nombre):
         if verificarNombre(nombre):
             juego = BuscarVideojuegoController.buscarVideojuego(nombre)
-            return render_template('buscarVideojuego.html', juego=juego)
-        return render_template('buscarVideojuego.html')
+            if juego is None:
+                return PrincipalView.inicio()
+            return render_template('verVideojuego.html', videojuego=juego)
+
+        return PrincipalView.inicio()
 
 
 class BuscarUsuarioView():
@@ -26,8 +26,10 @@ class BuscarUsuarioView():
     def buscarUsuario(nombre):
         if verificarNombre(nombre):
             usuario = BuscarUsuarioController.buscarUsuario(nombre)
-            return render_template('buscarUsuario.html', usuario=usuario)
-        return render_template('buscarUsuario.html')
+            if usuario is None:
+                return render_template('verUsuario.html')
+            return render_template('verUsuario.html', usuario=usuario)
+        return render_template('verUsuario.html')
 
     @staticmethod
     def verListado(usuario):
@@ -117,19 +119,21 @@ class RegistrarCuentaView():
 
     @staticmethod
     def inicio():
-        return render_template('cuenta/registrar.html')
+        return render_template('crearuser.html')
 
     @staticmethod
     def registrar(request):
         username = request.form.get('username', '')
-        password = request.form.get('password', '')
+        imagen = request.form.get('imagen', '')
+        nombre = request.form.get('nombre', '')
+        apellido = request.form.get('apellido', '')
         correo = request.form.get('correo', '')
+        password = request.form.get('password', '')
         if verificarNombre(username) and \
            verificarPassword(password) and \
-           verificarCorreo(correo) and \
-           RegistrarCuentaController.registrar(username, password, correo):
-            return render_template('cuenta/registrar.html', ok=True)
-        return render_template('cuenta/registrar.html', ok=False)
+           verificarCorreo(correo):
+            RegistrarCuentaController.registrar(username, nombre, apellido, correo, password, imagen)
+        return PrincipalView.inicio()
 
 
 class EditarCuentaView():
@@ -192,164 +196,128 @@ class RegistrarVideojuegoView():
 
     @staticmethod
     def inicio():
-        return render_template('videojuego/registrar.html')
+        return render_template('videojuego.html')
 
     @staticmethod
     def registrar(request):
         nombre = request.form.get('nombre', '')
         estreno = request.form.get('estreno', '')
-        plataformas = request.form.get('plataformas', [])
-        generos = request.form.get('generos', [])
+        imagen = request.form.get('imagen', '')
+        plataformas = request.form.getlist('plataformas')
+        generos = request.form.getlist('generos')
 
         if verificarJuego(nombre) and \
-           verificarFecha(estreno) and \
-           RegistrarVideojuegoController.registrar(nombre, estreno, platafromas, generos):
-            return render_template('videojuego/registrar.html', ok=True)
-        return render_template('videojuego/registrar.html', ok=False)
+           verificarFecha(estreno):
+            RegistrarVideojuegoController.registrar(nombre, estreno, generos, plataformas, imagen)
+
+        return GestionarVideojuegoView.inicio()
 
 class EditarVideojuegoView():
 
     @staticmethod
     def inicio():
         juegos = EditarVideojuegoController.obtenerJuegos()
-        return render_template('videojuego/editar.html', juegos)
+        return render_template('videojuego.html', juegos)
 
     @staticmethod
     def editar(request):
+        idn = request.form.get('idn', '')
         nombre = request.form.get('nombre', '')
+        imagen = request.form.get('imagen', '')
         estreno = request.form.get('estreno', '')
-        plataformas = request.form.get('plataformas', [])
-        generos = request.form.get('generos', [])
+        plataformas = request.form.getlist('plataformas')
+        generos = request.form.getlist('generos')
 
-        if verificarJuego(nombre) and \
-           verificarFecha(estreno) and \
-           EditarVideojuegoController.editar(nombre, estreno, plataformas, generos):
-            return render_template('videojuego/editar.html', ok=True)
-        return render_template('videojuego/editar.html', ok=False)
+        if verificarID(idn) and \
+           verificarJuego(nombre) and \
+           verificarFecha(estreno):
+            EditarVideojuegoController.editar(idn, nombre, estreno, generos, plataformas, imagen)
+
+        return GestionarVideojuegoView.inicio()
 
 class EliminarVideojuegoView():
 
     @staticmethod
     def inicio():
         juegos = EliminarVideojuegoController.obtenerJuegos()
-        return render_template('videojuego/eliminar.html', juegos)
+        return render_template('videojuego.html', juegos)
 
     @staticmethod
     def eliminar(request):
         idn = request.form.get('idn', '')
 
-        if verificarID(idn) and EliminarVideojuegoController.eliminar(idn):
-            return render_template('videojuego/eliminar.html', ok=True)
-        return render_template('videojuego/eliminar.html', ok=False)
+        if verificarID(idn):
+            EliminarVideojuegoController.eliminar(idn)
+        return GestionarVideojuegoView.inicio()
 
 class GestionarVideojuegoView():
 
     @staticmethod
     def inicio():
-        return render_template('videojuego/index.html')
-
-    @staticmethod
-    def registrar():
-        return RegistrarVideojuegoView.inicio()
-
-    @staticmethod
-    def editar():
-        return EditarVideojuegoView.inicio()
-
-    @staticmethod
-    def eliminar():
-        return EliminarVideojuegoView.inicio()
-
-
-class RegistrarGeneroView():
-
-    @staticmethod
-    def inicio():
-        generos = RegistrarGeneroController.obtenerGeneros()
-        return render_template('genero/index.html', generos)
+        generos = GestionarVideojuegoController.obtenerGeneros()
+        plataformas = GestionarVideojuegoController.obtenerPlataformas()
+        juegos = GestionarVideojuegoController.obtenerJuegos()
+        return render_template('videojuego.html', juegos=juegos, generos=generos, plataformas=plataformas)
 
     @staticmethod
     def registrar(request):
-        nombre = request.form.get('nombre', '')
-        if verificarNombre(nombre) and RegistrarGeneroController.registrar(nombre):
-            return render_template('genero/index.html', ok=True)
-        return render_template('genero/index.html', ok=False)
-
-class EditarGeneroView():
-
-    @staticmethod
-    def inicio():
-        generos = EditarGeneroController.obtenerGeneros()
-        return render_template('genero/editar.html', generos)
+        return RegistrarVideojuegoView.registrar(request)
 
     @staticmethod
     def editar(request):
-        idn = request.form.get('idn', '')
-        nombre = request.form.get('nombre', '')
-        if verificarID(idn) and \
-           verificarNombre(nombre) and \
-           EditarGeneroController.editar(idn, nombre):
-            return render_template('genero/index.html', ok=True)
-        return render_template('genero/index.html', ok=False)
-
-class EliminarGeneroView():
-
-    @staticmethod
-    def inicio():
-        generos = EliminarGeneroController.obtenerGeneros()
-        return render_template('genero/eliminar.html', generos)
+        return EditarVideojuegoView.editar(request)
 
     @staticmethod
     def eliminar(request):
-        idn = request.form.get('idn', '')
-        if verificarID(idn) and EliminarGeneroController.eliminar(idn):
-            return render_template('genero/eliminar.html', ok=True)
-        return render_template('genero/eliminar', ok=False)
+        return EliminarVideojuegoView.eliminar(request)
+
 
 class GestionarGeneroView():
 
     @staticmethod
     def inicio():
-        return render_template('genero/index.html')
+        generos = GestionarGeneroController.obtenerGeneros()
+        return render_template('genero.html', generos=generos)
 
     @staticmethod
-    def registrar():
-        return RegistrarGeneroView.inicio()
+    def registrar(request):
+        nombre = request.form.get('nombre', '')
+        if verificarNombre(nombre):
+            ok = RegistrarGeneroController.registrar(nombre)
+        return GestionarGeneroView.inicio()
 
     @staticmethod
-    def editar():
-        return EditarGeneroView.inicio()
+    def editar(request):
+        idn = request.form.get('idn', '')
+        nombre = request.form.get('nombre', '')
+        if verificarID(idn) and \
+           verificarNombre(nombre):
+            EditarGeneroController.editar(idn, nombre)
+        return GestionarGeneroView.inicio()
 
     @staticmethod
-    def eliminar():
-        return EliminarGeneroView.inicio()
+    def eliminar(request):
+        idn = request.form.get('idn', '')
+        if verificarID(idn):
+            EliminarGeneroController.eliminar(idn)
+        return GestionarGeneroView.inicio()
 
-class RegistrarPlataformaView():
+
+class GestionarPlataformaView():
 
     @staticmethod
     def inicio():
-        plataformas = RegistrarPlataformaController.obtenerPlataformas()
-        return render_template('plataforma/index.html', plataformas=plataformas)
+        plataformas = GestionarPlataformaController.obtenerPlataformas()
+        return render_template('plataforma.html', plataformas=plataformas)
 
     @staticmethod
     def registrar(request):
         nombre = request.form.get('nombre', '')
         estreno = request.form.get('estreno', '')
         marca = request.form.get('marca', '')
-        if verificarNombre(nombre) and \
-           verificarFecha(estreno) and \
-           verificarNombre(marca) and \
-           RegistrarPlataformaController.registrar(nombre, estreno, marca):
-            return render_template('plataforma/registrar.html', ok=True)
-        return render_template('plataforma/registrar.html', ok=False)
-
-
-class EditarPlataformaView():
-
-    @staticmethod
-    def inicio():
-        plataformas = RegistrarPlataformaController.obtenerPlataformas()
-        return render_template('plataforma/index.html', plataformas=plataformas)
+        if verificarNombre(nombre):
+            ok = RegistrarPlataformaController.registrar(nombre, estreno, marca)
+        return GestionarPlataformaView.inicio()
 
     @staticmethod
     def editar(request):
@@ -358,49 +326,23 @@ class EditarPlataformaView():
         estreno = request.form.get('estreno', '')
         marca = request.form.get('marca', '')
         if verificarID(idn) and \
-           verificarNombre(nombre) and \
-           verificarFecha(estreno) and \
-           verificarNombre(marca) and \
-           EditarPlataformaController.editar(idn, nombre, estreno, marca):
-            return render_template('plataforma/editar.html', ok=True)
-        return render_template('plataforma/editar.html', ok=False)
-
-class EliminarPlataformaView():
-
-    @staticmethod
-    def inicio():
-        plataformas = RegistrarPlataformaController.obtenerPlataformas()
-        return render_template('plataforma/index.html', plataformas=plataformas)
+           verificarNombre(nombre):
+            EditarPlataformaController.editar(idn, nombre, estreno, marca)
+        return GestionarPlataformaView.inicio()
 
     @staticmethod
     def eliminar(request):
         idn = request.form.get('idn', '')
-        if verificarID(idn) and \
-           EliminarPlataformaController.eliminar(idn):
-            return render_template('plataforma/eliminar.html', ok=True)
-        return render_template('plataforma/eliminar.html', ok=False)
+        if verificarID(idn):
+            EliminarPlataformaController.eliminar(idn)
+        return GestionarPlataformaView.inicio()
 
-class GestionarPlataformaView():
 
-    @staticmethod
-    def inicio():
-        return render_template('plataforma/index.html')
-
-    @staticmethod
-    def registrar():
-        return RegistrarPlataformaView.inicio()
-
-    @staticmethod
-    def editar():
-        return EditarPlataformaView.inicio()
-
-    @staticmethod
-    def eliminar():
-        return EliminarPlataformaView.inicio()
 
 class PrincipalView():
 
     @staticmethod
     def inicio():
-        return render_template('index.html')
+        juegos = GestionarVideojuegoController.ultimosJuegos()
+        return render_template('index.html', juegos=juegos)
 

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def verificarNombre(nombre):
     return True
 
@@ -15,3 +17,9 @@ def verificarFecha(fecha):
 
 def verificarID(idn):
     return True
+
+def parseFecha(str):
+    fecha = datetime.strptime(str, "%Y-%m-%d")
+    if fecha is None:
+        fecha = datetime.now()
+    return fecha

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+<h1><b>{{ usuario.username}}</b></h1>
+<br>
+<img src= "{{ usuario.imagen }}"  ,width=300, height=500 alt="FOTO!!" >
+<br>
+<div class="nav", align="center">
+    <h2>Listado</h2>
+    Vacio
+</div>
+{% endblock %}

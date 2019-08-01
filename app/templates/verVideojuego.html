@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+<h1><b>{{ videojuego.nombre}}</b></h1>
+<br>
+<img src= "{{ videojuego.imagen }}"  ,width=200, height=300 >
+<br>
+<div class="nav", align="center">
+    <ul>
+        <li>Fecha estreno: {{ videojuego.fecha_estreno }}</li>
+        <br />
+        <li>Géneros <br />
+            <ul>
+                {% for genero in videojuego.generos %}
+                <ul>{{ genero.nombre }}</ul>
+                {% endfor %}
+            </ul>
+        </li>
+        <br />
+        <li>PLataformas <br />
+            <ul>
+                {% for plataforma in videojuego.plataformas %}
+                <ul>{{ plataforma.nombre }}</ul>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</div>
+<br/>
+<br/>
+{% endblock %}

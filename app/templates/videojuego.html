@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+<h1><b>Videojuegos</b></h1>
+<br>
+<div class="nav", align="center">
+    <form method="post">
+        <div class="form-group">
+            <label for="nombreActual">Videojuegos disponibles</label>
+            <select class="form-control" id="nombreActual" name="idn">
+                {% for juego in juegos %}
+                <option value="{{ juego.id }}">{{ juego.nombre }} - {{ juego.fecha_estreno }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="plataformas">Plataformas</label>
+            <select multiple class="form-control" id="plataformas" name="plataformas">
+                {% for plataforma in plataformas %}
+                <option value="{{ plataforma.id }}">{{ plataforma.marca }} - {{ plataforma.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="generos">Géneros</label>
+            <select multiple class="form-control" id="generos" name="generos">
+                {% for genero in generos %}
+                <option value="{{ genero.id }}">{{ genero.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nuevoNombre">Nombre</label>
+            <input class="form-control" type="text" name="nombre" id="nuevoNombre" maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="estreno">Estreno</label>
+            <input class="form-control" type="date" name="estreno" id="estreno">
+        </div>
+        <div class="form-group">
+            <label for="imagen">Url Imagen</label>
+            <input class="form-control" type="text" name="imagen" id="imagen">
+        </div>
+        <input class="btn btn-primary" type="submit" name="action" value="Agregar">
+        <input class="btn btn-primary" type="submit" name="action" value="Editar">
+        <input class="btn btn-primary" type="submit" name="action" value="Dar de baja">
+    </form>
+</div>
+{% endblock %}

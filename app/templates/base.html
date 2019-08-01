@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
 
-<title>Gameteca</title>
+<title>{% block title %}Gameteca{% endblock %}</title>
+
+{% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+{% endblock %}
 
 </head>
 <body>
@@ -19,14 +22,8 @@
       </div>
 
       <div class="contenido">
-        <ul class="nav", align="center">
-          <li><header><b href="#header"><H2>Nuevos juegos en la plataforma! </H2></b>
-        </ul>
-        <br>
-        {% for juego in todos_juegos %}
-              <a href="juego/{{juego.id}}"><img src= {{juego.caratula}} alt={{juego.nombre}},width=300, height=500 >
-        {% endfor %}
-        <br>
+          {% block contenido %}
+          {% endblock %}
       </div>
 
       <div class="titulo">
@@ -36,33 +33,37 @@
         <br>
         <ul class="nav", align="center">
           <li><c href="#sesion">Iniciar sesión</a>
-          <ul>
+          <ul class="dropdown">
             <li><a href="#user"> <input class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
             <li><a href="#pass"> <input class="form-control mr-sm-2" type="search" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
             <li><a href="#buscar">Iniciar sesión</a>
           </ul>
           </li>
-          <li><a href="#registro">Registrarse</a></li>
-          <li><a href="{{url_for('videojuegos') }}">Nuestros videojuegos</a></li>
+          <li><a href="{{ url_for('crearCuenta') }}">Registrarse</a></li>
+          <li><a href="/">Nuestros videojuegos</a></li>
           <li><a href="#buscar">Buscar videojuego</a>
-          <ul>
-
-
-            <form method="post">
-            <li><a> <p>Nombre: <input type="text" value="Nombre juego"></p></a></li>
-            <li><a ><input type="submit" value="Buscar"></a>
-            </form>
-
-
+          <ul class="dropdown">
+            <li><a> <p>Nombre: <input type="text" id="videojuegoBuscado" name="nombre" value="Nombre juego"></p></a></li>
+            <li><a ><input type="button" onclick="buscarJuego()" value="Buscar"></a>
           </ul>
           </li>
           <li><a href="#buscar">Buscar Usuario</a>
-          <ul>
-            <li><a href="#buscar"> <input class="form-control mr-sm-2" type="search" placeholder="Buscar usuario" aria-label="Search">  </a></li>
-            <li><a href="#buscar">Buscar</a>
+          <ul class="dropdown">
+              <li><a> <p>Nombre: <input type="text" id="usuarioBuscado" name="nombre" value="Usuario"></p></a></li>
+              <li><a ><input type="button" onclick="buscarUsuario()" value="Buscar"></a>
           </ul>
           </li>
        </ul>
     </div>
+    <script>
+     function buscarJuego() {
+         var nombre = document.getElementById('videojuegoBuscado').value;
+         window.location="/videojuego/" + nombre
+     }
+     function buscarUsuario() {
+         var nombre = document.getElementById('usuarioBuscado').value;
+         window.location="/usuario/" + nombre
+     }
+    </script>
 </body>
 </html>
