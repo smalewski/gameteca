@@ -67,7 +67,7 @@ class Videojuego(db.Model):
     plataformas = db.relationship("Plataforma",
                               secondary=videojuego_plataforma_table,
                               backref=db.backref("videojuego", lazy=True))
-    listados = db.relationship("Valoracion", backref=db.backref("videojuego", lazy=True))
+    listados = db.relationship("Valoracion")
 
     def __init__(self, nombre, fecha_estreno, imagen=None):
         self.nombre = nombre
@@ -137,7 +137,7 @@ class ListadoVideojuegos(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
 
     usuario = db.relationship("UsuarioComun", uselist=False)
-    juegos = db.relationship("Valoracion", backref=db.backref("listado", lazy=True))
+    juegos = db.relationship("Valoracion")
 
     def __init__(self, user_id, cabecera, tema):
         self.cabecera = cabecera
@@ -169,8 +169,8 @@ class Valoracion(db.Model):
     __tablename__ = 'valoracion'
     listado_id = db.Column(db.Integer, db.ForeignKey('listado.id'), primary_key=True)
     videojuego_id = db.Column(db.Integer, db.ForeignKey('videojuego.id'), primary_key=True)
-    listado = db.relationship("ListadoVideojuegos")
-    videojuego = db.relationship("Videojuego")
+    listado = db.relationship("ListadoVideojuegos", backref=db.backref("valoracion", lazy=True))
+    videojuego = db.relationship("Videojuego", backref=db.backref("valoracion", lazy=True))
 
     horas = db.Column(db.Integer)
     puntuacion = db.Column(db.Integer)

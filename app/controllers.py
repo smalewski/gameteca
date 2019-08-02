@@ -5,7 +5,7 @@ from app.utils import parseFecha
 from sqlalchemy import desc
 
 def usuarioActual():
-    Usuario.buscar("test")
+    return Usuario.query.get(1)
 
 class BuscarVideojuegoController():
 
@@ -42,10 +42,17 @@ class AnadirListadoController():
         return GestionarListadoController.obtenerJuegos()
 
     @staticmethod
-    def anadeVideojuego(idn):
+    def anadeVideojuego(idn, horas, puntaje, comentario):
         usuario = usuarioActual()
+        juego = Videojuego.query.get(idn)
         listado = usuario.lista
-        return listado.anadirJuego(idn)
+        valoracion = Valoracion(horas, puntaje, comentario)
+        valoracion.videojuego = juego
+        listado.juegos.append(valoracion)
+
+        db.session.commit()
+
+        return True
 
 class EditarListadoController():
 

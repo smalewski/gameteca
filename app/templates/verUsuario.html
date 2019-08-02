@@ -16,6 +16,11 @@ Gameteca
 <br>
 <div class="nav", align="center">
     <h2>Listado</h2>
-    Vacio
+    <ul>
+        {% for valoracion in usuario.lista.juegos %}
+        <li>{{ valoracion.videojuego.nombre }} - {{ valoracion.horas }} - {{ valoracion.puntuacion }}</li>
+        <li>{{ valoracion.comentario }}</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
