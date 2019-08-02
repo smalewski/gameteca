@@ -19,11 +19,6 @@ videojuego_plataforma_table = db.Table('videojuego_plataforma',
     db.Column('plataforma_id', db.Integer, db.ForeignKey('plataforma.id'), primary_key=True)
 )
 
-videojuego_listado_table = db.Table('videojuego_listado',
-    db.Column('videojuego_id', db.Integer, db.ForeignKey('videojuego.id'), primary_key=True),
-    db.Column('listado_id', db.Integer, db.ForeignKey('listado.id'), primary_key=True)
-)
-
 #
 # Clases para los modelos
 #
@@ -73,9 +68,7 @@ class Videojuego(db.Model):
     plataformas = db.relationship("Plataforma",
                               secondary=videojuego_plataforma_table,
                               backref=db.backref("videojuego", lazy=True))
-    listados = db.relationship("ListadoVideojuegos",
-                            secondary=videojuego_listado_table,
-                            backref=db.backref("videojuego", lazy=True))
+    listados = db.relationship("Valoracion", backref=db.backref("videojuego", lazy=True))
 
     def __init__(self, nombre, fecha_estreno, imagen=None):
         self.nombre = nombre
@@ -145,9 +138,7 @@ class ListadoVideojuegos(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
 
     usuario = db.relationship("UsuarioComun", uselist=False)
-    juegos = db.relationship("Videojuego",
-                          secondary=videojuego_listado_table,
-                          backref=db.backref("listado", lazy=True))
+    juegos = db.relationship("Valoracion", backref=db.backref("listado", lazy=True))
 
     def __init__(self, user_id, cabecera, tema):
         self.cabecera = cabecera
@@ -174,3 +165,20 @@ class ListadoVideojuegos(db.Model):
 
         return True
 
+
+class Valoracion(db.Model):
+    __tablename__ = 'valoracion'
+    listado_id = db.Column(db.Integer, db.ForeignKey('listado.id'), primary_key=True)
+    videojuego_id = db.Column(db.Integer, db.ForeignKey('videojuego.id'), primary_key=True)
+    listado = db.relationship("ListadoVideojuegos")
+    videojuego = db.relationship("Videojuego")
+
+    horas = db.Column(db.Integer)
+    puntuacion = db.Column(db.Integer)
+
+    def __init__(self, horas, puntuacion):
+        self.horas = horas
+        self.puntuacion = puntuacion
+
+    def __repr__(self):
+        return f"<Valoracion {self.listado.usuario.username} {self.videojuego.nombre} - {self.horas} {self.puntuacion}>"
