@@ -8,7 +8,6 @@ from app import db
 #
 # Tablas de asociación
 #
-
 videojuego_genero_table = db.Table('videojuego_genero',
     db.Column('videojuego_id', db.Integer, db.ForeignKey('videojuego.id'), primary_key=True),
     db.Column('genero_id', db.Integer, db.ForeignKey('genero.id'), primary_key=True)
@@ -175,6 +174,7 @@ class Valoracion(db.Model):
 
     horas = db.Column(db.Integer)
     puntuacion = db.Column(db.Integer)
+    comentario = db.Column(db.String(1000))
 
     def __init__(self, horas, puntuacion):
         self.horas = horas
