@@ -42,12 +42,14 @@
 .barra{
   background-image: url("http://i66.tinypic.com/1tsguc.png");
   background-repeat: repeat-y;
+  height: 1000px;
   text-align: center;
   grid-area: barra;
 }
 
 .barra2{
   background-image: url("http://i66.tinypic.com/300sbaq.png");
+  height: 1000px;
   background-repeat: repeat-y;
   float: none;
   background-position: right;

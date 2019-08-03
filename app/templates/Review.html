@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
-
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gameteca</title>
-<link rel="stylesheet" href="../static/styles/gestionuser.css">
-<style>
-
-
-</style>
+<link rel="stylesheet" href="../static/styles/user.css">
 </head>
 <body>
     <div class = "container">
@@ -21,28 +18,26 @@
         <body background="lateral.png">
       </div>
 
-      <div class="contenido", align = center>
-        <!-- donde dice gato.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
-        <img src="gato.jpg" class='imgRedonda', width="500", height="500">
-          <br>
-              <ul class="nav", align="center">
-                <li><b>Imagen de usuario<input type="file" name="Subir imagen"><input type="submit" value="Cargar"></b>
-
-                  <ol><b>Nombre de usuario<br><input type="text" name="Nombre" id="user"></b>
-
-                  <ol><b>Contraseña <br><input type="password" name="pass" id="pass"></b>
-
-                  <ol><b>E-mail<br> <input type="text" name="Correo" id="correo"></b>
-
-                  <ol><b>Sobre mi: <br><br><textarea></textarea></b>
-                  </select></b>
-              </ul>
-        <br>
-
-
-        <input type="submit" value="Editar" style='width:120px; height:50px'>
-        <input type="submit" value="Dar de baja" style='width:120px; height:50px'>
+      <div class = "user">
+        <!-- Cambiar dark souls 3 por la imagen del juego que se está reseñando -->
+          <img src="ds3one.jpg" border="1" solid="#122235", style="border-width:1px;" width="150", height="200">
       </div>
+
+
+      <div class="circulo">
+        <h2>Calificación  <input class="form-control" type="number" name="nota" id="nota" value="Nombre juego"maxlength="3"></h2><br/>
+
+      </div>
+
+      <div class="descripcion", align = "center">
+          <h2>Realizando review de:  <!-- aquí va el nombre de usuario--> </h2>
+          <br>
+          <div class="form-group">
+            <br>
+              <textarea name="comentarios" rows="10" cols="40">Escribe aquí tu review</textarea>
+          </div>
+      </div>
+
 
       <div class="titulo">
         <ul>
