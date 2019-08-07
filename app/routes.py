@@ -62,6 +62,22 @@ def buscarVideojuego(nombre):
 def buscarUsuario(username):
     return BuscarUsuarioView.buscarUsuario(username)
 
+@app.route('/editar-cuenta', methods=['POST', 'GET'])
+def editarCuenta():
+    usuario = current_user
+    if request.method == 'GET':
+        return EditarCuentaView.inicio(usuario)
+    else:
+        return EditarCuentaView.editar(usuario, request)
+
+@app.route('/eliminar-cuenta', methods=['POST', 'GET'])
+def eliminarCuenta():
+    usuario = current_user
+    if request.method == 'GET':
+        return EliminarCuentaView.inicio(usuario)
+    else:
+        return EliminarCuentaView.eliminar(usuario, request)
+
 
 #
 # Gestión usuarios

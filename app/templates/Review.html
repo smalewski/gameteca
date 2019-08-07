@@ -1,80 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gameteca</title>
-<link rel="stylesheet" href="../static/styles/user.css">
-</head>
-<body>
-    <div class = "container">
+{% extends 'base.html' %}
 
-      <div class="barra2">
-      </div>
+{% block title %}
+Gameteca
+{% endblock %}
 
-      <div class="barra">
-        <body background="lateral.png">
-      </div>
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user.css') }}">
+{% endblock %}
 
-      <div class = "user">
-        <!-- Cambiar dark souls 3 por la imagen del juego que se está reseñando -->
-          <img src="ds3one.jpg" border="1" solid="#122235", style="border-width:1px;" width="150", height="200">
-      </div>
+{% block contenido %}
+<div class = "user">
+    <!-- Cambiar dark souls 3 por la imagen del juego que se está reseñando -->
+    <img src="ds3one.jpg" border="1" solid="#122235", style="border-width:1px;" width="150", height="200">
+</div>
 
 
-      <div class="circulo">
-        <h2>Calificación  <input class="form-control" type="number" name="nota" id="nota" value="Nombre juego"maxlength="3"></h2><br/>
+<div class="circulo">
+    <h2>Calificación  <input class="form-control" type="number" name="nota" id="nota" value="Nombre juego"maxlength="3"></h2><br/>
 
-      </div>
+</div>
 
-      <div class="descripcion", align = "center">
-          <h2>Realizando review de:  <!-- aquí va el nombre de usuario--> </h2>
-          <br>
-          <div class="form-group">
-            <br>
-              <textarea name="comentarios" rows="10" cols="40">Escribe aquí tu review</textarea>
-          </div>
-		  <input class="btn btn-primary" type="submit" name="action" value="Guardar">
-      </div>
-
-
-      <div class="titulo">
-        <ul>
-          <img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
-        </ul>
+<div class="descripcion", align = "center">
+    <h2>Realizando review de:  <!-- aquí va el nombre de usuario--> </h2>
+    <br>
+    <div class="form-group">
         <br>
-        <ul class="nav", align="center">
-          <li><a href="/">Inicio</a>
-          <li><a href="#sesion">Iniciar sesión</a>
-          <ul>
-            <li><a href="#user"> <input class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
-            <li><a href="#pass"> <input class="form-control mr-sm-2" type="search" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
-            <li><a href="#buscar">Iniciar sesión</a>
-          </ul>
-          </li>
-          <li><a href="#registro">Registrarse</a></li>
-          <li><a href="#videojuegos">Nuestros videojuegos</a></li>
-          <li><a href="#buscar">Buscar videojuego</a>
-          <ul>
-
-
-            <form method="post">
-            <li><a> <p>Nombre: <input type="text" value="Nombre juego"></p></a></li>
-            <li><a ><input type="submit" value="Buscar"></a>
-            </form>
-
-
-          </ul>
-          </li>
-          <li><a href="#buscar">Buscar Usuario</a>
-          <ul>
-            <li><a href="#buscar"> <input class="form-control mr-sm-2" type="search" placeholder="Buscar usuario" aria-label="Search">  </a></li>
-            <li><a href="#buscar">Buscar</a>
-          </ul>
-          </li>
-       </ul>
+        <textarea name="comentarios" rows="10" cols="40">Escribe aquí tu review</textarea>
     </div>
-</body>
-</html>
+    <input class="btn btn-primary" type="submit" name="action" value="Guardar">
+</div>
+{% endblock %}

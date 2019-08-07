@@ -12,8 +12,14 @@ Gameteca
 <!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
 <h1><b>{{ usuario.username}}</b></h1>
 <br>
-<img src= "{{ usuario.imagen }}"  ,width=300, height=500 alt="FOTO!!" >
+<img src="{{ usuario.imagen }}"  width=300 height=500 alt="FOTO!!" >
 <br>
+{% if current_user.username == usuario.username %}
+<ul>
+    <li><a href="{{ url_for('editarCuenta') }}">Editar cuenta</a></li>
+    <li><a href="{{ url_for('eliminarCuenta') }}">Eliminar cuenta</a></li>
+</ul>
+{% endif %}
 <div class="nav", align="center">
     <h2>Listado</h2>
     <ul>

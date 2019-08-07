@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, redirect, url_for
 from app.controllers import *
 from app.utils import *
 
@@ -139,39 +139,35 @@ class RegistrarCuentaView():
 class EditarCuentaView():
 
     @staticmethod
-    def inicio():
-        cuenta = EditarCuentaController.obtenerCuenta()
-        return render_template('cuenta/editar.html', cuenta=cuenta)
+    def inicio(cuenta):
+        return render_template('editaruser.html', usuario=cuenta)
 
     @staticmethod
-    def editar(request):
-        cuenta = EditarCuentaController.obtenerCuenta()
+    def editar(cuenta, request):
+        imagen = request.form.get('imagen', '')
+        nombre = request.form.get('nombre', '')
+        apellido = request.form.get('apellido', '')
+        correo = request.form.get('correo', '')
         passwordNueva = request.form.get('passwordNueva', '')
         passwordActual = request.form.get('passwordActual', '')
-        correo = request.form.get('correo', '')
-        if verificarNombre(username) and \
-           verificarPassword(passwordNueva) and \
+        if verificarPassword(passwordNueva) and \
            verificarPassword(passwordActual) and \
-           verificarCorreo(correo) and \
-           EditarCuentaController.editar(cuenta, passwordNueva, passwordActual, correo):
-            return render_template('cuenta/editar.html', ok=True)
-        return render_template('cuenta/editar.html', ok=False)
+           verificarCorreo(correo):
+            EditarCuentaController.editar(cuenta, nombre, apellido, passwordNueva, passwordActual, correo, imagen)
+        return redirect(url_for('login'))
 
 class EliminarCuentaView():
 
     @staticmethod
-    def inicio():
-        cuenta = EliminarCuentaController.obtenerCuenta()
-        return render_template('cuenta/eliminar.html', cuenta=cuenta)
+    def inicio(cuenta):
+        return render_template('eliminaruser.html', usuario=cuenta)
 
     @staticmethod
-    def eliminar(request):
-        cuenta = EliminarCuentaController.obtenerCuenta()
+    def eliminar(cuenta, request):
         password = request.form.get('password', '')
-        if verificarPassword(password) and \
-           EliminarCuentaController.eliminar(cuenta, password):
-            return render_template('cuenta/eliminar.html', ok=True)
-        return render_template('cuenta/eliminar.html', ok=False)
+        if verificarPassword(password):
+            EliminarCuentaController.eliminar(cuenta, password)
+        return redirect(url_for('principal'))
 
 
 class GestionarCuentaView():

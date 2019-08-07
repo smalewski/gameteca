@@ -136,22 +136,31 @@ class RegistrarCuentaController():
 class EditarCuentaController():
 
     @staticmethod
-    def inicio():
-        pass
+    def obtenerCuenta():
+        return usuarioActual()
 
     @staticmethod
-    def editar(nuevoUsername, nuevaPassword, passwordActual, nuevoCorreo):
-        pass
+    def editar(cuenta, nombre, apellido, nuevaPassword, passwordActual, correo, imagen):
+        if passwordActual == cuenta.password:
+            cuenta.nombre = nombre
+            cuenta.apellido = apellido
+            cuenta.password = nuevaPassword
+            cuenta.correo = correo
+            cuenta.imagen = imagen
+
+            db.session.commit()
 
 class EliminarCuentaController():
 
     @staticmethod
-    def inicio():
-        pass
+    def obtenerCuenta():
+        return usuarioActual()
 
     @staticmethod
-    def eliminar(password):
-        pass
+    def eliminar(cuenta, password):
+        if password == cuenta.password:
+            db.session.delete(cuenta)
+            db.session.commit()
 
 class GestionarCuentaController():
 

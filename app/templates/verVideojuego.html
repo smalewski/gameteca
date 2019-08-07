@@ -33,11 +33,38 @@ Gameteca
                 {% endfor %}
             </ul>
         </li>
+    </ul>
+    {% if current_user.is_authenticated %}
+    <br />
+    <br />
+    <h2>Tu reseña</h2>
+    <br />
+    <form>
         <input class="btn btn-primary" type="submit" name="action" value="Escribir reseña">
         <input class="btn btn-primary" type="submit" name="action" value="Editar reseña">
         <input class="btn btn-primary" type="submit" name="action" value="Eliminar mi reseña">
     </form>
-    </ul>
+    {% endif %}
+    <br />
+    <br />
+    <h2>Reseñas</h2>
+    <br />
+    <table>
+        <tr>
+            <th>Usuario</th>
+            <th>Puntaje</th>
+            <th>Horas</th>
+            <th>Comentarios</th>
+        </tr>
+    {% for resena in videojuego.listados %}
+        <tr>
+            <td>{{ resena.listado.usuario.username }}</td>
+            <td>{{ resena.puntuacion }}</td>
+            <td>{{ resena.horas }}</td>
+            <td>{{ resena.comentario }}</td>
+        </tr>
+    {% endfor %}
+    </table>
 </div>
 <br/>
 <br/>

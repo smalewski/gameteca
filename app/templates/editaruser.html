@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+<h1><b>Editar usuario</b></h1>
+<br>
+<br>
+<div class="nav", align="center">
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            {{ usuario.username }}
+        </div>
+        <div class="form-group">
+            <label for="imagen">Url Imagen</label>
+            <input class="form-control" type="text" name="imagen" id="imagen" value="{{ usuario.imagen }}">
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="form-control" type="text" name="nombre" id="nombre" maxlength="100" value="{{ usuario.nombre }}">
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input class="form-control" type="text" name="apellido" id="apellido" maxlength="100" value="{{ usuario.apellido }}">
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo</label>
+            <input class="form-control" type="text" name="correo" id="correo" maxlength="200" value="{{ usuario.correo }}">
+        </div>
+        <div class="form-group">
+            <label for="passwordNueva">Contraseña Nueva</label>
+            <input class="form-control" type="password" name="passwordNueva" id="passwordNueva">
+        </div>
+        <div class="form-group">
+            <label for="passwordActual">Contraseña Actual</label>
+            <input class="form-control" type="password" name="passwordActual" id="passwordActual">
+        </div>
+        <input class="btn btn-primary" type="submit" name="action" value="Editar">
+    </form>
+</div>
+{% endblock %}
