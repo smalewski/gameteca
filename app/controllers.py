@@ -3,9 +3,10 @@ from app.views import *
 from app import db
 from app.utils import parseFecha
 from sqlalchemy import desc
+from flask_login import current_user
 
 def usuarioActual():
-    return Usuario.query.get(1)
+    return current_user
 
 class BuscarVideojuegoController():
 

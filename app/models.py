@@ -32,6 +32,9 @@ class Usuario(db.Model):
     password = db.Column(db.String(50))
     imagen = db.Column(db.String(120))
 
+    # Flask_Login
+    conectado = db.Column(db.Boolean, default=False)
+
     def __init__(self, username, nombre, apellido, correo, password, imagen=None):
         self.username = username
         self.nombre = nombre
@@ -43,9 +46,18 @@ class Usuario(db.Model):
     def __repr__(self):
         return f"<Usuario {self.username}>"
 
-    def buscar(self, nombre):
-        usuarios = self.query.filter(Usuario.username.ilike(f"%{nombre}%")).all()
-        return usuarios
+    # Flask_Login
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.id
+
+    def is_authenticated(self):
+        return self.conectado
+
+    def is_anonymous(self):
+        return False
 
 
 class Admin(Usuario):
