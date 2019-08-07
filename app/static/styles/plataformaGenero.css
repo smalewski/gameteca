@@ -34,7 +34,6 @@
 .contenido{
   background: white;
   padding: 10px;
-  color: #fff;
   text-align: center;
   grid-area: contenido;
 }
