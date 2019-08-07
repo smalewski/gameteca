@@ -26,25 +26,21 @@
 .contenido{
   background: white;
   padding: 10px;
-  color: #000;
+  color: #fff;
   text-align: center;
   grid-area: contenido;
 }
 
 .barra{
   background-image: url("http://i66.tinypic.com/1tsguc.png");
-  height: 1000px;
   background-repeat: repeat-y;
   text-align: center;
   grid-area: barra;
-  top: 0;
-  bottom: 0;
 }
 
 .barra2{
   background-image: url("http://i66.tinypic.com/300sbaq.png");
   background-repeat: repeat-y;
-  height: 1000px;
   float: none;
   background-position: right;
   text-align: center;

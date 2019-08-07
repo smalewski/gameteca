@@ -1,11 +1,11 @@
 
 .container{
   display: grid;
-  grid-template-columns: 0.5fr 0.20fr 1.5fr 0.15fr 0.15f r0.5fr;
+  grid-template-columns: 0.5fr 0.25fr 1.5fr 0.25fr 0.5fr;
   grid-template-areas:
-    "barra titulo titulo titulo titulo barra2"
-    "barra user descripcion horas circulo barra2"
-    "barra lista lista lista lista barra2"
+    "barra titulo titulo titulo barra2"
+    "barra user descripcion circulo barra2"
+    "barra lista lista lista barra2"
 }
 
 .container2{
@@ -61,8 +61,6 @@
 .barra{
   background-image: url("http://i66.tinypic.com/1tsguc.png");
   background-repeat: repeat-y;
-  height: 1000px;
-  overflow: visible
   text-align: center;
   grid-area: barra;
 }
@@ -71,7 +69,6 @@
   background-image: url("http://i66.tinypic.com/300sbaq.png");
   background-repeat: repeat-y;
   float: none;
-  height: 1000px;
   background-position: right;
   text-align: center;
   grid-area: barra2;
@@ -105,7 +102,6 @@ ul, ol {
 	padding:10px 12px;
 	display:block;
 }
-
 .nota {
   grid-area: nota;
 }
@@ -115,26 +111,6 @@ ul, ol {
 	color: white;
 	font-size: 1.4rem;
 	font-weight: bold;
-}
-
-.horas {
-    margin-bottom: 20px;
-    width:75px;
-    height:50px;
-	  border-radius: 15%;
-	  background: black;
-    display: flex;
-	  justify-content: center;
-	  align-items: center;
-	  text-align: center;
-    grid-area: horas;
-}
-
-.horas > h2 {
-	  font-family: sans-serif;
-	  color: white;
-	  font-size: 1.4rem;
-	  font-weight: bold;
 }
 
 .circulo {

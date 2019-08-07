@@ -34,7 +34,7 @@
 .contenido{
   background: white;
   padding: 10px;
-  color: #000;
+  color: #fff;
   text-align: center;
   grid-area: contenido;
 }
@@ -42,14 +42,12 @@
 .barra{
   background-image: url("http://i66.tinypic.com/1tsguc.png");
   background-repeat: repeat-y;
-  height: 1000px;
   text-align: center;
   grid-area: barra;
 }
 
 .barra2{
   background-image: url("http://i66.tinypic.com/300sbaq.png");
-  height: 1000px;
   background-repeat: repeat-y;
   float: none;
   background-position: right;
@@ -71,10 +69,6 @@
 ul, ol {
 	list-style:none;
   display:inline-block;
-}
-
-.nav {
-    min-width:880px;
 }
 
 .nav > li {
@@ -104,11 +98,10 @@ ul, ol {
 	background-color:#434343;
 }
 
-
-.dropdown {
+.nav li ul {
+		display:none;
 		position:absolute;
 		min-width:140px;
-    display:none;
 }
 
 .nav li:hover > ul {
@@ -122,9 +115,4 @@ ul, ol {
 .nav li ul li ul {
 	right:-140px;
 	top:0px;
-}
-
-.btn {
-    width:120px;
-    height:50px;
 }
