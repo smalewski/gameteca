@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+<h1><b>{{ videojuego.nombre}}</b></h1>
+<br>
+<img src= "{{ videojuego.imagen }}"  ,width=200, height=300 >
+<br>
+<div class="nav", align="center">
+    <ul>
+        <li>Fecha estreno: {{ videojuego.fecha_estreno }}</li>
+        <br />
+        <li>Géneros <br />
+            <ul>
+                {% for genero in videojuego.generos %}
+                <ul>{{ genero.nombre }}</ul>
+                {% endfor %}
+            </ul>
+        </li>
+        <br />
+        <li>PLataformas <br />
+            <ul>
+                {% for plataforma in videojuego.plataformas %}
+                <ul>{{ plataforma.nombre }}</ul>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+    {% if current_user.is_authenticated %}
+    <br />
+    <br />
+    <h2>Tu reseña</h2>
+    <br />
+    {% if valoracion %}
+    <div class = "container2">
+        <div class = "juego">
+            <!-- cambiar ps4.jpg por la imagen del juego -->
+            <a href="{{ url_for('buscarUsuario', username=valoracion.listado.usuario.username) }}">
+                <img src="{{ valoracion.listado.usuario.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+            </a>
+        </div>
+        <div class="texto">
+            <h>{{ valoracion.comentario }}</h>
+        </div>
+        <div class="horas">
+            <h2>{{ valoracion.horas }}</h2>
+        </div>
+        <div class="nota">
+            <div class="circulo">
+                <h2>{{ valoracion.puntuacion }}</h2>
+            </div>
+        </div>
+    </div>
+    <br />
+    <a href="{{ url_for('editarReseña', nombre=videojuego.nombre) }}">Editar reseña</a>
+    <a href="{{ url_for('eliminarReseña', nombre=videojuego.nombre) }}">Eliminar reseña</a>
+    {% else %}
+    Aun no has escritos una reseña!
+    <br />
+    <a href="{{ url_for('crearReseña', nombre=videojuego.nombre) }}">Crear reseña</a>
+    {% endif %}
+    <br />
+    </form>
+    {% endif %}
+    <br />
+    <br />
+    <h2>Reseñas</h2>
+    <br />
+        <div class = "lista">
+            <hr/>
+            {% for valoracion in videojuego.valoracion %}
+            <!-- Este es el texto que se debe repetir para generar la lista -->
+            <div class = "container2">
+                <div class = "juego">
+                    <!-- cambiar ps4.jpg por la imagen del juego -->
+                    <a href="{{ url_for('buscarUsuario', username=valoracion.listado.usuario.username) }}">
+                    <img src="{{ valoracion.listado.usuario.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+                    </a>
+                </div>
+                <div class="texto">
+                    <h>{{ valoracion.comentario }}</h>
+                </div>
+                <div class="horas">
+                        <h2>{{ valoracion.horas }}</h2>
+                </div>
+                <div class="nota">
+                    <div class="circulo">
+                        <h2>{{ valoracion.puntuacion }}</h2>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            {% endfor %}
+        </div>
+</div>
+<br/>
+<br/>
+{% endblock %}

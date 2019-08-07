@@ -1,0 +1,125 @@
+.container{
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 0.5fr;
+  grid-template-areas:
+    "barra titulo barra2"
+    "barra contenido barra2"
+
+}
+
+.box{
+  background:  slateblue;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.titulo{
+
+  background: white;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  grid-area: titulo;
+}
+
+.contenido{
+  background: white;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  grid-area: contenido;
+}
+
+.barra{
+  background-image: url("http://i66.tinypic.com/1tsguc.png");
+  height: 1000px;
+  background-repeat: repeat-y;
+  text-align: center;
+  grid-area: barra;
+}
+
+.barra2{
+  background-image: url("http://i66.tinypic.com/300sbaq.png");
+  background-repeat: repeat-y;
+  height: 1000px;
+  float: none;
+  background-position: right;
+  text-align: center;
+  grid-area: barra2;
+}
+
+* {
+  margin:0px;
+	padding:0px;
+}
+
+#header {
+	margin:auto;
+	width:500px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+ul, ol {
+	list-style:none;
+  display:inline-block;
+}
+
+.nav > ol {
+	float:left;
+}
+
+.nav ol b {
+  background-color:#FFFF;
+  text-align: center;
+  float:none;
+  -webkit-text-stroke-color: black;
+	color:#000;
+	text-decoration:none;
+	padding:10px 400px;
+	display:block;
+}
+.nav > li {
+	float:left;
+}
+
+.nav li a {
+  background-color:#000;
+	color:#fff;
+	text-decoration:none;
+	padding:10px 12px;
+	display:block;
+}
+
+.nav li b {
+  background-color:#FFFF;
+
+  -webkit-text-stroke-color: black;
+	color:#000;
+	text-decoration:none;
+	padding:10px 400px;
+	display:block;
+}
+
+.nav li a:hover {
+	background-color:#434343;
+}
+
+.nav li ul {
+		display:none;
+		position:absolute;
+		min-width:140px;
+}
+
+.nav li:hover > ul {
+	display:block;
+}
+
+.nav li ul li {
+	position:relative;
+}
+
+.nav li ul li ul {
+	right:-140px;
+	top:0px;
+}

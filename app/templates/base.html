@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+
+<title>{% block title %}Gameteca{% endblock %}</title>
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+{% endblock %}
+
+</head>
+<body>
+    <div class = "container", align="center">
+      <div class="titulo",align="center">
+          <a href="/"><img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo" width=200 height=100 >
+        <br>
+        <ul class="nav" align="center">
+            {%- if current_user.is_authenticated -%}
+            <li><a href="{{ url_for('buscarUsuario', username=current_user.username) }}">Mi cuenta</a></li>
+            <li><a href="{{ url_for('logout') }}">Salir</a></li>
+            {%- else -%}
+            <li><a href="#sesion">Iniciar sesión</a>
+                <ul class="dropdown">
+                    <li><a> <input id="username" class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
+                    <li><a> <input id="password" class="form-control mr-sm-2" type="password" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
+                    <li><a><input type="button" onclick="login()" value="Iniciar sesión"></a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url_for('crearCuenta') }}">Registrarse</a></li>
+            {%- endif -%}
+            <li><a href="/">Nuestros videojuegos</a></li>
+            <li><a href="#buscar">Buscar videojuego</a>
+                <ul class="dropdown">
+                    <li><a> <p>Nombre: <input type="text" id="videojuegoBuscado" name="nombre" value="Nombre juego"></p></a></li>
+                    <li><a ><input type="button" onclick="buscarJuego()" value="Buscar"></a></li>
+                </ul>
+            </li>
+            <li><a href="#buscar">Buscar Usuario</a>
+                <ul class="dropdown">
+                    <li><a> <p>Nombre: <input type="text" id="usuarioBuscado" name="nombre" value="Usuario"></p></a></li>
+                    <li><a ><input type="button" onclick="buscarUsuario()" value="Buscar"></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+      <div class="barra2" height= "1000">
+      </div>
+
+      <div class="barra" height= "1000">
+      </div>
+
+      <div class="contenido">
+          {% block contenido %}
+          {% endblock %}
+      </div>
+
+    <script>
+     function buscarJuego() {
+         var nombre = document.getElementById('videojuegoBuscado').value;
+         window.location="/videojuego/" + nombre
+     }
+     function buscarUsuario() {
+         var nombre = document.getElementById('usuarioBuscado').value;
+         window.location="/usuario/" + nombre
+     }
+     function login() {
+         var username = document.getElementById('username').value;
+         var password = document.getElementById('password').value;
+
+         var XHR = new XMLHttpRequest();
+         var FD = new FormData();
+
+         FD.append("username", username);
+         FD.append("password", password);
+
+         XHR.open('POST', '/login');
+         XHR.onreadystatechange = function() {
+             if(XHR.readyState == XMLHttpRequest.DONE && XHR.status == 200) {
+                 window.location.href = '/login';
+             }
+         };
+         XHR.send(FD);
+     }
+    </script>
+</body>
+</html>

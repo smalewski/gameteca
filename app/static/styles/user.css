@@ -1,0 +1,181 @@
+
+.container{
+  display: grid;
+  grid-template-columns: 0.5fr 0.20fr 1.5fr 0.15fr 0.15f r0.5fr;
+  grid-template-areas:
+    "barra titulo titulo titulo titulo barra2"
+    "barra user descripcion horas circulo barra2"
+    "barra lista lista lista lista barra2"
+}
+
+.container2{
+  display: grid;
+  grid-template-columns:  0.25fr 1.5fr 0.25fr;
+  grid-template-areas:
+    " juego texto nota "
+}
+
+.lista{
+  background: white;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  grid-area: lista;
+}
+
+
+.texto{
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  color: black;
+  grid-area
+}
+
+
+.titulo{
+  background: white;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  grid-area: titulo;
+}
+
+.user{
+  background: white;
+  margin-bottom: 20px;
+  padding: 10px;
+  color: #fff;
+  text-align: left;
+  grid-area: user;
+}
+
+.juego{
+  background: white;
+  padding: 10px;
+  color: #fff;
+  text-align: left;
+  grid-area: juego;
+}
+
+.barra{
+  background-image: url("http://i66.tinypic.com/1tsguc.png");
+  background-repeat: repeat-y;
+  height: 1000px;
+  overflow: visible
+  text-align: center;
+  grid-area: barra;
+}
+
+.barra2{
+  background-image: url("http://i66.tinypic.com/300sbaq.png");
+  background-repeat: repeat-y;
+  float: none;
+  height: 1000px;
+  background-position: right;
+  text-align: center;
+  grid-area: barra2;
+}
+
+* {
+  margin:0px;
+	padding:0px;
+}
+
+.imgRedonda {
+    width:150px;
+    height:150px;
+    border-radius:150px;
+    border:10px solid #666;
+}
+
+ul, ol {
+	list-style:none;
+  display:inline-block;
+}
+
+.nav > li {
+	float:left;
+}
+
+.nav li a {
+  background-color:#000;
+	color:#fff;
+	text-decoration:none;
+	padding:10px 12px;
+	display:block;
+}
+
+.nota {
+  grid-area: nota;
+}
+
+.nota > h2 {
+	font-family: sans-serif;
+	color: white;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.horas {
+    margin-bottom: 20px;
+    width:75px;
+    height:50px;
+	  border-radius: 15%;
+	  background: black;
+    display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+    grid-area: horas;
+}
+
+.horas > h2 {
+	  font-family: sans-serif;
+	  color: white;
+	  font-size: 1.4rem;
+	  font-weight: bold;
+}
+
+.circulo {
+  margin-bottom: 20px;
+  width:150px;
+  height:150px;
+	border-radius: 50%;
+	background: red;
+  display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+  grid-area: circulo;
+}
+
+.circulo > h2 {
+	font-family: sans-serif;
+	color: white;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.nav li a:hover {
+	background-color:#434343;
+}
+
+.nav li ul {
+		display:none;
+		position:absolute;
+		min-width:140px;
+}
+
+.nav li:hover > ul {
+	display:block;
+}
+
+.nav li ul li {
+	position:relative;
+}
+
+.nav li ul li ul {
+	right:-140px;
+	top:0px;
+}

@@ -1,1 +1,1 @@
-web: gunicorn gameteca.wsgi --log-file -
+web: flask db upgrade; gunicorn gameteca:app

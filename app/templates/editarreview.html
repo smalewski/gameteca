@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gameteca
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<div class = "user">
+    <!-- Cambiar dark souls 3 por la imagen del juego que se está reseñando -->
+    <img src="{{ videojuego.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="150", height="200">
+</div>
+
+
+<div class="circulo">
+    <h2>Calificación  <input class="form-control" type="number" name="nota" id="nota" maxlength="3" value="{{ valoracion.puntaje }}"></h2><br/>
+</div>
+
+<h2>Tiempo jugado  <input class="form-control" type="number" name="horas" id="horas" value="{{ valoracion.horas }}" maxlength="5"></h2><br/>
+
+<div class="descripcion", align = "center">
+    <h2>Realizando review de: {{ current_user.username }}</h2>
+    <br>
+    <div class="form-group">
+        <br>
+        <textarea id="comentarios" name="comentarios" rows="10" cols="40">{{ valoracion.comentario }}</textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" onclick="editReview()" name="action" value="Guardar">
+</div>
+<script>
+ function editReview() {
+     var nota = document.getElementById('nota').value;
+     var horas = document.getElementById('horas').value;
+     var comentario = document.getElementById('comentarios').value;
+     var username = "{{ current_user.username }}";
+
+     var XHR = new XMLHttpRequest();
+     var FD = new FormData();
+
+     FD.append("puntaje", nota);
+     FD.append("horas", horas);
+     FD.append("comentario", comentario);
+     FD.append("username", username);
+
+     XHR.open('POST', '/videojuego/{{ videojuego.nombre }}/editar-reseña');
+     XHR.onreadystatechange = function() {
+         if(XHR.readyState == XMLHttpRequest.DONE && XHR.status == 200) {
+             window.location.href = '/videojuego/{{ videojuego.nombre }}';
+         }
+     };
+     XHR.send(FD);
+ }
+</script>
+{% endblock %}
