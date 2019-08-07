@@ -1,82 +1,49 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+{% extends 'base.html' %}
 
-<title>Gameteca</title>
-<link rel="stylesheet" href="css/gestionuser.css">
-<style>
+{% block title %}
+{% extends 'base.html' %}
 
+{% block title %}
+Gameteca
+{% endblock %}
 
-</style>
-</head>
-<body>
-    <div class = "container">
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user.css') }}">
+{% endblock %}
 
-      <div class="barra2">
-      </div>
+{% block contenido %}
+<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
+<h1><b>Editar usuario</b></h1>
+<br>
+<br>
+<div class="nav", align="center">
 
-      <div class="barra">
-        <body background="lateral.png">
-      </div>
-
-      <div class="contenido", align = center>
-        <!-- donde dice gato.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
-        <img src="gato.jpg" class='imgRedonda', width="500", height="500">
-          <br>
-
-              <ul class="nav">
-                <ol><b>Imagen de usuario <br><input type="file" name="Subir imagen"><input type="submit" value="Cargar"></b>
-
-                  <ol><b>Nombre de usuario <br><input type="text" name="Nombre" id="user"></b>
-
-                  <ol><b>Contraseña <br><input type="password" name="pass" id="pass"></b>
-
-                  <ol><b>E-mail <br><input type="text" name="Correo" id="correo"></b>
-
-                  <ol><b>Sobre mi: <br><textarea></textarea></b>
-              </ul>
-        <br>
-
-        <input type="submit" value="Crear" style='width:120px; height:50px'>
-      </div>
-
-      <div class="titulo">
-        <ul>
-          <img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo",width=200, height=100 >
-        </ul>
-        <br>
-        <ul class="nav", align="center">
-          <li><a href="/">Inicio</a>
-          <li><a href="#sesion">Iniciar sesión</a>
-          <ul>
-            <li><a href="#user"> <input class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
-            <li><a href="#pass"> <input class="form-control mr-sm-2" type="search" placeholder="Contraseña" aria-label="Contrasena">  </a></li>
-            <li><a href="#buscar">Iniciar sesión</a>
-          </ul>
-          </li>
-          <li><a href="#registro">Registrarse</a></li>
-          <li><a href="#videojuegos">Nuestros videojuegos</a></li>
-          <li><a href="#buscar">Buscar videojuego</a>
-          <ul>
-
-
-            <form method="post">
-            <li><a> <p>Nombre: <input type="text" value="Nombre juego"></p></a></li>
-            <li><a ><input type="submit" value="Buscar"></a>
-            </form>
-
-
-          </ul>
-          </li>
-          <li><a href="#buscar">Buscar Usuario</a>
-          <ul>
-            <li><a href="#buscar"> <input class="form-control mr-sm-2" type="search" placeholder="Buscar usuario" aria-label="Search">  </a></li>
-            <li><a href="#buscar">Buscar</a>
-          </ul>
-          </li>
-       </ul>
-    </div>
-</body>
-</html>
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            {{ usuario.username }}
+        </div>
+        <div class="form-group">
+            <label for="imagen">Url Imagen</label>
+            <input class="form-control" type="text" name="imagen" id="imagen"">
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input class="form-control" type="text" name="nombre" id="nombre" maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input class="form-control" type="text" name="apellido" id="apellido" maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo</label>
+            <input class="form-control" type="text" name="correo" id="correo" maxlength="200">
+        </div>
+        <div class="form-group">
+            <label for="passwordActual">Contraseña</label>
+            <input class="form-control" type="password" name="password" id="password">
+        </div>
+        <input class="btn btn-primary" type="submit" name="action" value="Crear">
+    </form>
+</div>
+{% endblock %}
