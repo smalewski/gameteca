@@ -90,14 +90,6 @@ class Videojuego(db.Model):
     def __repr__(self):
         return f"<Videojuego {self.nombre}>"
 
-    def buscar(self, nombre):
-        juegos = self.query.filter(Videojuego.nombre.ilike(f"%{nombre}%")).all()
-        return juegos
-
-    def obtenerVideojuegos(self):
-        juegos = self.query.all()
-        return juegos
-
 
 class Plataforma(db.Model):
     __tablename__ = 'plataforma'
@@ -135,8 +127,6 @@ class Genero(db.Model):
     def __repr__(self):
         return f"<Genero {self.nombre}>"
 
-    def obtenerGeneros(self):
-        return self.query.all()
 
 class Temas(enum.Enum):
     oscuro = 1
@@ -160,23 +150,6 @@ class ListadoVideojuegos(db.Model):
     def __repr__(self):
         return f"<ListadoVideojuegos {self.id}>"
 
-    def buscar(self, usuario):
-        listado = self.query.filter(ListadoVideojuegos.usuario_id == usuario).one_or_none()
-        return listado
-
-    def anadirJuego(self, idJuego):
-        juego = Videojuego.query.filter(Videojuego.id == idJuego).one_or_none()
-
-        if juego is not None:
-            try:
-                self.juegos.append(juego)
-                db_session.commit()
-                return True
-            except:
-                return True
-
-        return True
-
 
 class Valoracion(db.Model):
     __tablename__ = 'valoracion'
@@ -189,9 +162,10 @@ class Valoracion(db.Model):
     puntuacion = db.Column(db.Integer)
     comentario = db.Column(db.String(1000))
 
-    def __init__(self, horas, puntuacion):
+    def __init__(self, horas, puntuacion, comentario):
         self.horas = horas
         self.puntuacion = puntuacion
+        self.comentario = comentario
 
     def __repr__(self):
         return f"<Valoracion {self.listado.usuario.username} {self.videojuego.nombre} - {self.horas} {self.puntuacion}>"

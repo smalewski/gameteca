@@ -17,10 +17,10 @@
           <a href="/"><img src="http://i64.tinypic.com/15dlw15.png" alt="gameteca logo" width=200 height=100 >
         <br>
         <ul class="nav" align="center">
-            {% if current_user.is_authenticated %}
+            {%- if current_user.is_authenticated -%}
             <li><a href="{{ url_for('buscarUsuario', username=current_user.username) }}">Mi cuenta</a></li>
             <li><a href="{{ url_for('logout') }}">Salir</a></li>
-            {% else %}
+            {%- else -%}
             <li><a href="#sesion">Iniciar sesión</a>
                 <ul class="dropdown">
                     <li><a> <input id="username" class="form-control mr-sm-2" type="search" placeholder="Usuario" aria-label="Username">  </a></li>
@@ -29,7 +29,7 @@
                 </ul>
             </li>
             <li><a href="{{ url_for('crearCuenta') }}">Registrarse</a></li>
-            {% endif %}
+            {%- endif -%}
             <li><a href="/">Nuestros videojuegos</a></li>
             <li><a href="#buscar">Buscar videojuego</a>
                 <ul class="dropdown">

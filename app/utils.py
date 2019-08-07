@@ -9,6 +9,12 @@ def verificarJuego(juego):
 def verificarCorreo(correo):
     return True
 
+def verificarHoras(horas):
+    return 0 <= horas
+
+def verificarValoracion(puntaje):
+    return 0 <= puntaje and puntaje <= 100
+
 def verificarPassword(password):
     return True
 

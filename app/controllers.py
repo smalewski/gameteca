@@ -15,6 +15,12 @@ class BuscarVideojuegoController():
         juego = Videojuego.query.filter(Videojuego.nombre.ilike(f"%{nombre}%")).first()
         return juego
 
+    @staticmethod
+    def obtenerValoracion(user, juego):
+        if current_user is None:
+            return None
+        return EditarListadoController.obtenerValoracion(user, juego)
+
 
 class BuscarUsuarioController():
 
@@ -39,18 +45,19 @@ class VerListadoController():
 class AnadirListadoController():
 
     @staticmethod
-    def obtenerJuegos():
-        return GestionarListadoController.obtenerJuegos()
+    def obtenerJuego(nombre):
+        return GestionarListadoController.obtenerJuego(nombre)
 
     @staticmethod
-    def anadeVideojuego(idn, horas, puntaje, comentario):
-        usuario = usuarioActual()
-        juego = Videojuego.query.get(idn)
+    def anadir(username, videojuego, horas, puntaje, comentario):
+        usuario = UsuarioComun.query.filter(username == Usuario.username).first()
+        juego = Videojuego.query.filter(videojuego == Videojuego.nombre).first()
         listado = usuario.lista
         valoracion = Valoracion(horas, puntaje, comentario)
         valoracion.videojuego = juego
-        listado.juegos.append(valoracion)
+        valoracion.listado = listado
 
+        db.session.add(valoracion)
         db.session.commit()
 
         return True
@@ -58,54 +65,54 @@ class AnadirListadoController():
 class EditarListadoController():
 
     @staticmethod
-    def obtenerJuegos():
-        return GestionarListadoController.obtenerJuegosListado()
+    def obtenerValoracion(usuario, juego):
+        try:
+            lista = ListadoVideojuegos.query.filter(ListadoVideojuegos.usuario_id == usuario.id).first()
+            valoracion = Valoracion.query.filter(juego.id == Valoracion.videojuego_id)\
+                                         .filter(lista.id == Valoracion.listado_id)\
+                                         .first()
+            return valoracion
+        except:
+            return None
+
 
     @staticmethod
-    def editar(idn, valoracion, horas):
-        usuario = usuarioActual()
-        listado = usuario.lista
-        return listado.editarJuego(idn, valoracion, horas)
+    def obtenerJuego(nombre):
+        return GestionarListadoController.obtenerJuego(nombre)
+
+    @staticmethod
+    def editar(username, videojuego, horas, puntaje, comentario):
+        usuario = Usuario.query.filter(username == Usuario.username).first()
+        juego = Videojuego.query.filter(videojuego == Videojuego.nombre).first()
+        valoracion = EditarListadoController.obtenerValoracion(usuario, juego)
+
+        valoracion.horas = horas
+        valoracion.puntaje = puntaje
+        valoracion.comentario = comentario
+
+        db.session.commit()
+
+        return True
 
 class EliminarListadoController():
 
     @staticmethod
-    def obtenerJuegos():
-        return GestionarListadoController.obtenerJuegosListado()
+    def eliminar(usuario, nombreJuego):
+        juego = Videojuego.query.filter(videojuego == Videojuego.nombre).first()
+        valoracion = Valoracion.query.filter(usuario.id == Valoracion.listado.usuario_id)\
+                                     .filter(juego.id == Valoracion.videojuego.id)\
+                                     .first()
 
-    @staticmethod
-    def eliminar(idn):
-        usuario = usuarioActual()
-        listado = usuario.lista
-        return listado.eliminarJuego(idn)
+        db.session.delete(valoracion)
+        db.session.commit()
+
+        return True
 
 class GestionarListadoController():
 
     @staticmethod
-    def inicio():
-        pass
-
-    @staticmethod
-    def anadir():
-        return
-
-    @staticmethod
-    def editar():
-        pass
-
-    @staticmethod
-    def eliminar():
-        pass
-
-    @staticmethod
-    def obtenerJuegos():
-        return Videojuego.obtenerVideojuegos()
-
-    @staticmethod
-    def obtenerJuegos():
-        usuario = usuarioActual()
-        listado = usuario.lista
-        return listado.juegos
+    def obtenerJuego(nombre):
+        return Videojuego.query.filter(nombre == Videojuego.nombre).first()
 
 
 class RegistrarCuentaController():

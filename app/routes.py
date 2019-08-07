@@ -98,11 +98,27 @@ def verUsuario(username):
 # Valoraciones
 #
 
-#@app.route('/login', methods=['GET', 'POST'])
-#def login():
-    #if request.method == 'POST':
-        #username = request.form.get('username', '')
-        #password = request.form.get('password', '')
+@app.route('/videojuego/<nombre>/crear-reseña', methods=['GET', 'POST'])
+@login_required
+def crearReseña(nombre):
+    if request.method == 'POST':
+        return AnadirListadoView.anadir(nombre, request)
+    else:
+        return AnadirListadoView.inicio(nombre)
+
+@app.route('/videojuego/<nombre>/editar-reseña', methods=['GET', 'POST'])
+@login_required
+def editarReseña(nombre):
+    if request.method == 'POST':
+        return EditarListadoView.editar(nombre, request)
+    else:
+        return EditarListadoView.inicio(nombre)
+
+@app.route('/videojuego/<nombre>/eliminar-reseña')
+@login_required
+def eliminarReseña(nombre):
+    username = current_user
+    return EliminarListadoView.eliminar(user, nombre)
 
 
 #

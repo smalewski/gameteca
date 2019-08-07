@@ -11,7 +11,8 @@ class BuscarVideojuegoView():
             juego = BuscarVideojuegoController.buscarVideojuego(nombre)
             if juego is None:
                 return PrincipalView.inicio()
-            return render_template('verVideojuego.html', videojuego=juego)
+            valoracion = BuscarVideojuegoController.obtenerValoracion(current_user, juego)
+            return render_template('verVideojuego.html', videojuego=juego, valoracion=valoracion)
 
         return PrincipalView.inicio()
 
@@ -49,52 +50,51 @@ class VerListadoView():
 class AnadirListadoView():
 
     @staticmethod
-    def inicio():
-        juegos = AnadirListadoController.obtenerJuegos()
-        return render_template('listado/anadir.html', juegos)
+    def inicio(nombre):
+        juego = AnadirListadoController.obtenerJuego(nombre)
+        return render_template('crearreview.html', videojuego=juego)
 
     @staticmethod
-    def anadeVideojuego(request):
-        idn = request.form.get('idn, ''')
-        if verificarID(idn) and \
-           AnadirVideojuegoListadoController.anadeVideojuego(juego):
-            return render_template('listado/anadir.html', ok=True)
-        return render_template('listado/anadir.html', ok=False)
+    def anadir(nombreJuego, request):
+        username = request.form.get('username', '')
+        puntaje = int(request.form.get('puntaje', 0))
+        horas = int(request.form.get('horas', 0))
+        comentario = request.form.get('comentario', '')
+
+        if verificarHoras(horas) and \
+           verificarValoracion(puntaje):
+            AnadirListadoController.anadir(username, nombreJuego, horas, puntaje, comentario)
+
+        return redirect(url_for('login'))
 
 
 class EditarListadoView():
 
     @staticmethod
-    def inicio():
-        juegos = EditarListadoView.obtenerJuegos()
-        return render_template('listado/editar.html', juegos=juegos)
+    def inicio(nombre):
+        juego = EditarListadoController.obtenerJuego(nombre)
+        valoracion = EditarListadoController.obtenerValoracion(current_user, juego)
+        return render_template('editarreview.html', videojuego=juego, valoracion=valoracion)
 
     @staticmethod
-    def editar(request):
-        idn = request.form.get('idn', -1)
-        valoracion = request.form.get('valoracion', 0)
-        horas = request.form.get('horas', 0)
-        if verificarJuego(idn) and \
-           verificarHoras(horas) and \
-           verificarValoracion(valoracion):
-            EditarListadoController.editar(idn, valoracion, horas)
-            return render_template('listado/editar', ok=True)
-        return render_template('listado/editar', ok=False)
+    def editar(nombreJuego, request):
+        username = request.form.get('username', '')
+        puntaje = int(request.form.get('puntaje', 0))
+        horas = int(request.form.get('horas', 0))
+        comentario = request.form.get('comentario', '')
+
+        if verificarHoras(horas) and \
+           verificarValoracion(puntaje):
+            EditarListadoController.editar(username, nombreJuego, puntaje, horas, comentario)
+
+        return redirect(url_for('login'))
 
 class EliminarListadoView():
 
     @staticmethod
-    def inicio():
-        juegos = EliminarListadoView.obtenerJuegos()
-        return render_template('listado/eliminar.html', juegos=juegos)
-
-    @staticmethod
-    def eliminar(request):
-        idn = request.form.get('idn', -1)
-        if verificarJuego(idn):
-            EliminarListadoController.eliminar(idn)
-            return render_template('listado/eliminar', ok=True)
-        return render_template('listado/eliminar', ok=False)
+    def eliminar(user, nombreJuego):
+        EliminarListadoController(user, nombreJuego)
+        return redirect(url_for('login'))
 
 class GestionarListadoView():
 

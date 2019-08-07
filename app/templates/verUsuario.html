@@ -40,10 +40,17 @@ Gameteca
           <div class = "container2">
               <div class = "juego">
                   <!-- cambiar ps4.jpg por la imagen del juego -->
+                  <a href="{{ url_for('buscarVideojuego', nombre=juego.videojuego.nombre) }}">
                   <img src="{{ juego.videojuego.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+                  </a>
               </div>
               <div class="texto">
                   <h>{{ juego.comentario }}</h>
+              </div>
+              <div class="nota">
+                  <div class="circulo">
+                      <h2>{{ juego.horas }}</h2>
+                  </div>
               </div>
               <div class="nota">
                   <div class="circulo">

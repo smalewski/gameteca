@@ -39,10 +39,37 @@ Gameteca
     <br />
     <h2>Tu reseña</h2>
     <br />
-    <form>
-        <input class="btn btn-primary" type="submit" name="action" value="Escribir reseña">
-        <input class="btn btn-primary" type="submit" name="action" value="Editar reseña">
-        <input class="btn btn-primary" type="submit" name="action" value="Eliminar mi reseña">
+    {% if valoracion %}
+    <div class = "container2">
+        <div class = "juego">
+            <!-- cambiar ps4.jpg por la imagen del juego -->
+            <a href="{{ url_for('buscarUsuario', username=valoracion.listado.usuario.username) }}">
+                <img src="{{ valoracion.listado.usuario.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+            </a>
+        </div>
+        <div class="texto">
+            <h>{{ valoracion.comentario }}</h>
+        </div>
+        <div class="nota">
+            <div class="circulo">
+                <h2>{{ valoracion.horas }}</h2>
+            </div>
+        </div>
+        <div class="nota">
+            <div class="circulo">
+                <h2>{{ valoracion.puntaje }}</h2>
+            </div>
+        </div>
+    </div>
+    <br />
+    <a href="{{ url_for('editarReseña', nombre=videojuego.nombre) }}">Editar reseña</a>
+    <a href="{{ url_for('eliminarReseña', nombre=videojuego.nombre) }}">Eliminar reseña</a>
+    {% else %}
+    Aun no has escritos una reseña!
+    <br />
+    <a href="{{ url_for('crearReseña', nombre=videojuego.nombre) }}">Crear reseña</a>
+    {% endif %}
+    <br />
     </form>
     {% endif %}
     <br />
@@ -56,10 +83,17 @@ Gameteca
             <div class = "container2">
                 <div class = "juego">
                     <!-- cambiar ps4.jpg por la imagen del juego -->
+                    <a href="{{ url_for('buscarUsuario', username=valoracion.listado.usuario.username) }}">
                     <img src="{{ valoracion.listado.usuario.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+                    </a>
                 </div>
                 <div class="texto">
                     <h>{{ valoracion.comentario }}</h>
+                </div>
+                <div class="nota">
+                    <div class="circulo">
+                        <h2>{{ valoracion.horas }}</h2>
+                    </div>
                 </div>
                 <div class="nota">
                     <div class="circulo">
