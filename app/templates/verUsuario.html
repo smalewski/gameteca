@@ -33,6 +33,7 @@ Gameteca
 
 
       {% if usuario.role == "ADMIN" %}
+      {% if current_user.role == ADMIN %}
       <br />
       <h2>Adminnistración</h2>
       <ul>
@@ -40,6 +41,7 @@ Gameteca
           <li><a href="{{ url_for('adminPlataforma') }}">Plataformas</a></li>
           <li><a href="{{ url_for('adminVideojuego') }}">Videojuegos</a></li>
       </ul>
+      {% endif %}
       {% else %}
       <div class = "lista" , align="center">
           <hr/>
