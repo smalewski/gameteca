@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{% extends 'base.html' %}
-
-{% block title %}
 Gameteca
 {% endblock %}
 
@@ -13,7 +10,7 @@ Gameteca
 
 {% block contenido %}
 <!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
-<h1><b>Editar usuario</b></h1>
+<h1><b>Crear usuario</b></h1>
 <br>
 <br>
 <div class="nav", align="center">
@@ -21,7 +18,7 @@ Gameteca
     <form method="post">
         <div class="form-group">
             <label for="username">Username</label>
-            {{ usuario.username }}
+            <input class="form-control" type="text" name="username" id="username"">
         </div>
         <div class="form-group">
             <label for="imagen">Url Imagen</label>
