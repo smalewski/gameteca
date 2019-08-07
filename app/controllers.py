@@ -30,18 +30,6 @@ class BuscarUsuarioController():
         print(usuario.lista)
         return usuario
 
-    @staticmethod
-    def verListado(usuario):
-        return VerListadoController.mostrarListado(usuario)
-
-
-class VerListadoController():
-
-    @staticmethod
-    def mostrarListado(usuario):
-        listado = ListadoVideojuegos.buscar(usuario)
-        return VerListadoView.mostrarListado(listado)
-
 class AnadirListadoController():
 
     @staticmethod
@@ -169,24 +157,6 @@ class EliminarCuentaController():
             db.session.delete(cuenta)
             db.session.commit()
 
-class GestionarCuentaController():
-
-    @staticmethod
-    def inicio():
-        pass
-
-    @staticmethod
-    def registrar():
-        pass
-
-    @staticmethod
-    def editar():
-        pass
-
-    @staticmethod
-    def eliminar():
-        pass
-
 class RegistrarVideojuegoController():
 
     @staticmethod
@@ -203,10 +173,6 @@ class RegistrarVideojuegoController():
         return True
 
 class EditarVideojuegoController():
-
-    @staticmethod
-    def inicio():
-        pass
 
     @staticmethod
     def editar(idn, nombre, estreno, generos, plataformas, imagen):

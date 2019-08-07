@@ -20,10 +20,6 @@ class BuscarVideojuegoView():
 class BuscarUsuarioView():
 
     @staticmethod
-    def inicio():
-        return render_template('buscarUsuario.html')
-
-    @staticmethod
     def buscarUsuario(nombre):
         if verificarNombre(nombre):
             usuario = BuscarUsuarioController.buscarUsuario(nombre)
@@ -32,20 +28,6 @@ class BuscarUsuarioView():
             return render_template('verUsuario.html', usuario=usuario)
         return render_template('verUsuario.html')
 
-    @staticmethod
-    def verListado(usuario):
-        return BuscarUsuarioController.verListado(usuario)
-
-
-class VerListadoView():
-
-    @staticmethod
-    def inicio():
-        pass
-
-    @staticmethod
-    def mostrarListado(listado):
-        return render_template('usuario/listado.html', listado=listado)
 
 class AnadirListadoView():
 
@@ -168,25 +150,6 @@ class EliminarCuentaView():
         if verificarPassword(password):
             EliminarCuentaController.eliminar(cuenta, password)
         return redirect(url_for('principal'))
-
-
-class GestionarCuentaView():
-
-    @staticmethod
-    def inicio():
-        return render_template('cuenta/index.html')
-
-    @staticmethod
-    def registrar():
-        return RegistrarCuentaView.inicio()
-
-    @staticmethod
-    def editar():
-        return EditarCuentaView.inicio()
-
-    @staticmethod
-    def eliminar():
-        return EliminarCuentaView.inicio()
 
 class RegistrarVideojuegoView():
 
