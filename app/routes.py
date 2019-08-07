@@ -1,9 +1,8 @@
 from flask import request, redirect, url_for
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, logout_user, current_user
 from app.views import *
 from app.models import Usuario
-
-from app import app, db
+from app import app, db, login_required
 
 #
 # Sesiones
@@ -28,7 +27,7 @@ def login():
 
 
 @app.route('/logout')
-@login_required
+@login_required()
 def logout():
     user = current_user
     user.conectado = False
@@ -61,7 +60,7 @@ def buscarUsuario(username):
     return BuscarUsuarioView.buscarUsuario(username)
 
 @app.route('/editar-cuenta', methods=['POST', 'GET'])
-@login_required
+@login_required()
 def editarCuenta():
     usuario = current_user
     if request.method == 'GET':
@@ -70,7 +69,7 @@ def editarCuenta():
         return EditarCuentaView.editar(usuario, request)
 
 @app.route('/eliminar-cuenta', methods=['POST', 'GET'])
-@login_required
+@login_required()
 def eliminarCuenta():
     usuario = current_user
     if request.method == 'GET':
@@ -99,7 +98,7 @@ def verUsuario(username):
 #
 
 @app.route('/videojuego/<nombre>/crear-reseña', methods=['GET', 'POST'])
-@login_required
+@login_required()
 def crearReseña(nombre):
     if request.method == 'POST':
         return AnadirListadoView.anadir(nombre, request)
@@ -107,7 +106,7 @@ def crearReseña(nombre):
         return AnadirListadoView.inicio(nombre)
 
 @app.route('/videojuego/<nombre>/editar-reseña', methods=['GET', 'POST'])
-@login_required
+@login_required()
 def editarReseña(nombre):
     if request.method == 'POST':
         return EditarListadoView.editar(nombre, request)
@@ -115,7 +114,7 @@ def editarReseña(nombre):
         return EditarListadoView.inicio(nombre)
 
 @app.route('/videojuego/<nombre>/eliminar-reseña')
-@login_required
+@login_required()
 def eliminarReseña(nombre):
     username = current_user
     return EliminarListadoView.eliminar(user, nombre)
@@ -130,12 +129,12 @@ def eliminarReseña(nombre):
 # Videojuegos
 #
 @app.route('/admin/videojuego')
-@login_required
+@login_required("ADMIN")
 def adminVideojuego():
     return GestionarVideojuegoView.inicio()
 
 @app.route('/admin/videojuego', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminRegistrarVideojuego():
     action = request.form.get('action', '')
     if action == "Agregar":
@@ -152,12 +151,12 @@ def adminRegistrarVideojuego():
 # Generos
 #
 @app.route('/admin/genero')
-@login_required
+@login_required("ADMIN")
 def adminGenero():
     return GestionarGeneroView.inicio()
 
 @app.route('/admin/genero', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminRegistrarGenero():
     action = request.form.get('action', '')
     if action == "Agregar":
@@ -170,12 +169,12 @@ def adminRegistrarGenero():
         return GestionarGeneroView.inicio()
 
 @app.route('/admin/genero', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminEditarGenero():
     return GestionarGeneroView.editar(request)
 
 @app.route('/admin/genero', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminEliminarGenero():
     return GestionarGeneroView.eliminar(request)
     return GestionarGeneroView.registrar(request)
@@ -185,21 +184,21 @@ def adminEliminarGenero():
 # Plataformas
 #
 @app.route('/admin/plataforma')
-@login_required
+@login_required("ADMIN")
 def adminPlataforma():
     return GestionarPlataformaView.inicio()
 
 @app.route('/admin/plataforma', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminRegistrarPlataforma():
     return GestionarPlataformaView.registrar(request)
 
 @app.route('/admin/plataforma', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminEditarPlataforma():
     return GestionarPlataformaView.editar(request)
 
 @app.route('/admin/plataforma', methods=['POST'])
-@login_required
+@login_required("ADMIN")
 def adminEliminarPlataforma():
     return GestionarPlataformaView.eliminar(request)

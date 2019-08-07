@@ -32,6 +32,7 @@ class Usuario(db.Model):
     password = db.Column(db.String(50))
     imagen = db.Column(db.String(1000))
     descripcion = db.Column(db.String(1000))
+    role = db.Column(db.String(10))
 
     # Flask_Login
     conectado = db.Column(db.Boolean, default=False)
@@ -43,6 +44,7 @@ class Usuario(db.Model):
         self.correo = correo
         self.password = password
         self.imagen = imagen
+        self.role = "COMUN"
 
     def __repr__(self):
         return f"<Usuario {self.username}>"
@@ -60,12 +62,19 @@ class Usuario(db.Model):
     def is_anonymous(self):
         return False
 
+    def urole(self):
+        return self.role
+
 
 class Admin(Usuario):
-    pass
+    def urole(self):
+        return "ADMIN"
 
 class UsuarioComun(Usuario):
     lista = db.relationship("ListadoVideojuegos", uselist=False)
+
+    def urole(self):
+        return "COMUN"
 
 class Videojuego(db.Model):
     __tablename__ = 'videojuego'
