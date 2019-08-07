@@ -11,17 +11,16 @@ Gameteca
 {% block contenido %}
 <div class = "user">
     <!-- Cambiar dark souls 3 por la imagen del juego que se está reseñando -->
-    <img src="ds3one.jpg" border="1" solid="#122235", style="border-width:1px;" width="150", height="200">
+    <img src="{{ videojuego.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="150", height="200">
 </div>
 
 
 <div class="circulo">
-    <h2>Calificación  <input class="form-control" type="number" name="nota" id="nota" value="Nombre juego"maxlength="3"></h2><br/>
-
+    <h2>Calificación  <input class="form-control" type="number" name="nota" id="nota" maxlength="3"></h2><br/>
 </div>
 
 <div class="descripcion", align = "center">
-    <h2>Realizando review de:  <!-- aquí va el nombre de usuario--> </h2>
+    <h2>Realizando review de: {{ current_user.username }}</h2>
     <br>
     <div class="form-group">
         <br>

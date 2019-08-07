@@ -5,7 +5,7 @@ Gameteca
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user.css') }}">
 {% endblock %}
 
 {% block contenido %}
@@ -49,22 +49,27 @@ Gameteca
     <br />
     <h2>Reseñas</h2>
     <br />
-    <table>
-        <tr>
-            <th>Usuario</th>
-            <th>Puntaje</th>
-            <th>Horas</th>
-            <th>Comentarios</th>
-        </tr>
-    {% for resena in videojuego.listados %}
-        <tr>
-            <td>{{ resena.listado.usuario.username }}</td>
-            <td>{{ resena.puntuacion }}</td>
-            <td>{{ resena.horas }}</td>
-            <td>{{ resena.comentario }}</td>
-        </tr>
-    {% endfor %}
-    </table>
+        <div class = "lista">
+            <hr/>
+            {% for valoracion in videojuego.valoracion %}
+            <!-- Este es el texto que se debe repetir para generar la lista -->
+            <div class = "container2">
+                <div class = "juego">
+                    <!-- cambiar ps4.jpg por la imagen del juego -->
+                    <img src="{{ valoracion.listado.usuario.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+                </div>
+                <div class="texto">
+                    <h>{{ valoracion.comentario }}</h>
+                </div>
+                <div class="nota">
+                    <div class="circulo">
+                        <h2>{{ valoracion.puntaje }}</h2>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            {% endfor %}
+        </div>
 </div>
 <br/>
 <br/>

@@ -31,6 +31,7 @@ class Usuario(db.Model):
     correo = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(50))
     imagen = db.Column(db.String(1000))
+    descripcion = db.Column(db.String(1000))
 
     # Flask_Login
     conectado = db.Column(db.Boolean, default=False)

@@ -5,28 +5,54 @@ Gameteca
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/plataformaGenero.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user.css') }}">
 {% endblock %}
 
 {% block contenido %}
-<!-- donde dice ps4.jpg cambiar por la caratula del juego, si el juego aún no se ha creado, coloquemos una imagen de juego nuevo o algo así -->
-<h1><b>{{ usuario.username}}</b></h1>
-<br>
-<img src="{{ usuario.imagen }}"  width=300 height=500 alt="FOTO!!" >
-<br>
-{% if current_user.username == usuario.username %}
-<ul>
-    <li><a href="{{ url_for('editarCuenta') }}">Editar cuenta</a></li>
-    <li><a href="{{ url_for('eliminarCuenta') }}">Eliminar cuenta</a></li>
-</ul>
-{% endif %}
-<div class="nav", align="center">
-    <h2>Listado</h2>
-    <ul>
-        {% for valoracion in usuario.lista.juegos %}
-        <li>{{ valoracion.videojuego.nombre }} - {{ valoracion.horas }} - {{ valoracion.puntuacion }}</li>
-        <li>{{ valoracion.comentario }}</li>
-        {% endfor %}
-    </ul>
-</div>
-{% endblock %}
+      <div class="user">
+        <!-- Cambiar el gato por la imagen del usuario -->
+          <img src="{{ usuario.imagen }}" class='imgRedonda' border="1" solid="#122235", style="border-width:1px;" width="150", height="150">
+      </div>
+
+      {% if current_user.username == usuario.username %}
+      <ul>
+          <li><a href="{{ url_for('editarCuenta') }}">Editar cuenta</a></li>
+          <li><a href="{{ url_for('eliminarCuenta') }}">Eliminar cuenta</a></li>
+      </ul>
+      {% endif %}
+
+      <div class="circulo">
+          <h2>Juegos jugados: {{ usuario.lista.juegos|length }}</h2>
+      </div>
+
+      <div class="descripcion", align = "center">
+          <h2>Perfil de {{ usuario.username }}</h2>
+          <br>
+          <h2>{{ usuario.descripcion }}</h2>
+      </div>
+
+
+
+      <div class = "lista">
+          <hr/>
+          {% for juego in usuario.lista.juegos %}
+          <!-- Este es el texto que se debe repetir para generar la lista -->
+          <div class = "container2">
+              <div class = "juego">
+                  <!-- cambiar ps4.jpg por la imagen del juego -->
+                  <img src="{{ juego.videojuego.imagen }}" border="1" solid="#122235", style="border-width:1px;" width="120", height="150">
+              </div>
+              <div class="texto">
+                  <h>{{ juego.comentario }}</h>
+              </div>
+              <div class="nota">
+                  <div class="circulo">
+                      <h2>{{ juego.puntaje }}</h2>
+                  </div>
+              </div>
+          </div>
+          <hr/>
+          {% endfor %}
+      </div>
+      {% endblock %}
+
