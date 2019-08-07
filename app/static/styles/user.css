@@ -1,11 +1,11 @@
 
 .container{
   display: grid;
-  grid-template-columns: 0.5fr 0.25fr 1.5fr 0.25fr 0.5fr;
+  grid-template-columns: 0.5fr 0.20fr 1.5fr 0.15fr 0.15f r0.5fr;
   grid-template-areas:
-    "barra titulo titulo titulo barra2"
-    "barra user descripcion circulo barra2"
-    "barra lista lista lista barra2"
+    "barra titulo titulo titulo titulo barra2"
+    "barra user descripcion horas circulo barra2"
+    "barra lista lista lista lista barra2"
 }
 
 .container2{
@@ -117,6 +117,25 @@ ul, ol {
 	font-weight: bold;
 }
 
+.horas {
+    margin-bottom: 20px;
+    width:75px;
+    height:50px;
+	  border-radius: 15%;
+	  background: black;
+    display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+    grid-area: horas;
+}
+
+.horas > h2 {
+	  font-family: sans-serif;
+	  color: white;
+	  font-size: 1.4rem;
+	  font-weight: bold;
+}
 
 .circulo {
   margin-bottom: 20px;
