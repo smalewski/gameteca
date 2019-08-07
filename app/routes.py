@@ -19,7 +19,6 @@ def login():
 
         if user is not None and password == user.password:
             user.conectado = True
-            db.session.add(user)
             db.session.commit()
             login_user(user, remember=True)
     if current_user is None:
@@ -33,7 +32,6 @@ def login():
 def logout():
     user = current_user
     user.conectado = False
-    db.session.add(user)
     db.session.commit()
     logout_user()
     return redirect(url_for('principal'))
@@ -63,6 +61,7 @@ def buscarUsuario(username):
     return BuscarUsuarioView.buscarUsuario(username)
 
 @app.route('/editar-cuenta', methods=['POST', 'GET'])
+@login_required
 def editarCuenta():
     usuario = current_user
     if request.method == 'GET':
@@ -71,6 +70,7 @@ def editarCuenta():
         return EditarCuentaView.editar(usuario, request)
 
 @app.route('/eliminar-cuenta', methods=['POST', 'GET'])
+@login_required
 def eliminarCuenta():
     usuario = current_user
     if request.method == 'GET':
@@ -93,6 +93,16 @@ def crearCuenta():
 @app.route('/usuario/<username>')
 def verUsuario(username):
     return BuscarUsuarioView.buscarUsuario(username)
+
+#
+# Valoraciones
+#
+
+#@app.route('/login', methods=['GET', 'POST'])
+#def login():
+    #if request.method == 'POST':
+        #username = request.form.get('username', '')
+        #password = request.form.get('password', '')
 
 
 #
