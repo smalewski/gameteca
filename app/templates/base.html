@@ -80,6 +80,8 @@
          XHR.onreadystatechange = function() {
              if(XHR.readyState == XMLHttpRequest.DONE && XHR.status == 200) {
                  window.location.href = '/login';
+             } else if (XHR.readyState == XMLHttpRequest.DONE) {
+                 alert("No puede iniciar sesión: datos incorrectos!");
              }
          };
          XHR.send(FD);
